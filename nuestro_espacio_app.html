@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+<meta name="theme-color" content="#6c5ce7" />
+<title>Nuestro Espacio</title>
+<style>
+:root{
+  --bg:#f5f6fb;--card:#ffffff;--text:#1f2230;--muted:#74798b;--primary:#6c5ce7;--primary-soft:#ece9ff;
+  --danger:#e74c3c;--success:#20bf6b;--warning:#f5a623;--border:#e9eaf1;--shadow:0 10px 28px rgba(34,36,58,.08);
+  --nav-h:78px;
+}
+body.dark{--bg:#12141b;--card:#1b1e27;--text:#f5f7fb;--muted:#a7adbe;--primary-soft:#292544;--border:#2a2f3b;--shadow:0 10px 28px rgba(0,0,0,.28)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text)}
+body{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom))}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{max-width:760px;margin:0 auto;min-height:100vh}
+.header{padding:calc(18px + env(safe-area-inset-top)) 18px 12px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:linear-gradient(180deg,var(--bg) 72%,transparent);z-index:10}
+.header h1{font-size:26px;margin:0 0 3px}.header p{margin:0;color:var(--muted);font-size:14px}
+.icon-btn{border:0;background:var(--card);color:var(--text);width:44px;height:44px;border-radius:14px;box-shadow:var(--shadow);font-size:20px}
+main{padding:6px 16px 24px}.view{display:none}.view.active{display:block}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0 18px}.summary{background:var(--card);padding:16px;border-radius:20px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.summary .value{font-size:28px;font-weight:800;margin-top:7px}.summary .label{font-size:13px;color:var(--muted)}
+.hero{background:linear-gradient(135deg,#6c5ce7,#8e7dff);color:white;padding:20px;border-radius:24px;box-shadow:var(--shadow);margin-bottom:16px}.hero h2{margin:0 0 6px;font-size:22px}.hero p{margin:0;opacity:.9}.progress{height:10px;background:rgba(255,255,255,.25);border-radius:999px;margin-top:15px;overflow:hidden}.progress>span{display:block;height:100%;background:white;border-radius:999px}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin:22px 2px 10px}.section-title h2{font-size:18px;margin:0}.section-title button{border:0;background:none;color:var(--primary);font-weight:700}
+.list{display:flex;flex-direction:column;gap:10px}.item{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px;display:flex;gap:12px;align-items:flex-start;box-shadow:var(--shadow)}
+.check{width:28px;height:28px;border:2px solid var(--primary);border-radius:9px;background:transparent;display:grid;place-items:center;color:white;flex:none}.check.done{background:var(--primary)}
+.item-main{flex:1;min-width:0}.item-title{font-weight:750;line-height:1.25}.item.done .item-title{text-decoration:line-through;color:var(--muted)}.item-meta{font-size:12px;color:var(--muted);margin-top:5px;display:flex;gap:7px;flex-wrap:wrap}.tag{padding:3px 8px;border-radius:999px;background:var(--primary-soft);color:var(--primary);font-weight:700}.item-actions{display:flex;gap:5px}.mini{border:0;background:transparent;color:var(--muted);font-size:18px;padding:3px}
+.empty{background:var(--card);border:1px dashed var(--border);padding:28px 18px;border-radius:20px;text-align:center;color:var(--muted)}
+.fab{position:fixed;right:18px;bottom:calc(var(--nav-h) + 18px + env(safe-area-inset-bottom));width:58px;height:58px;border-radius:20px;border:0;background:var(--primary);color:white;font-size:30px;box-shadow:0 14px 30px rgba(108,92,231,.35);z-index:20}
+.bottom-nav{position:fixed;left:0;right:0;bottom:0;height:calc(var(--nav-h) + env(safe-area-inset-bottom));background:var(--card);border-top:1px solid var(--border);display:flex;justify-content:center;z-index:15;padding-bottom:env(safe-area-inset-bottom)}
+.nav-inner{max-width:760px;width:100%;display:grid;grid-template-columns:repeat(5,1fr);height:var(--nav-h)}.nav-btn{border:0;background:none;color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px}.nav-btn span{font-size:22px}.nav-btn.active{color:var(--primary);font-weight:800}
+.filters{display:flex;gap:8px;overflow:auto;padding:3px 0 12px}.filter{white-space:nowrap;border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:9px 13px}.filter.active{background:var(--primary);color:white;border-color:var(--primary)}
+.budget{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:18px;box-shadow:var(--shadow);margin-bottom:14px}.budget-row{display:flex;justify-content:space-between;margin:7px 0}.budget strong{font-size:20px}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;background:var(--card);padding:14px;border-radius:22px;border:1px solid var(--border);box-shadow:var(--shadow)}.day{aspect-ratio:1;border-radius:12px;display:grid;place-items:center;font-size:13px;position:relative}.day.today{background:var(--primary);color:white;font-weight:800}.day.has::after{content:"";position:absolute;bottom:5px;width:5px;height:5px;background:var(--warning);border-radius:50%}.weekday{text-align:center;font-size:11px;color:var(--muted);padding-bottom:4px}
+.note{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:15px;box-shadow:var(--shadow)}.note h3{margin:0 0 7px;font-size:16px}.note p{margin:0;color:var(--muted);white-space:pre-wrap}
+.modal{position:fixed;inset:0;background:rgba(14,16,24,.48);display:none;align-items:flex-end;z-index:50}.modal.open{display:flex}.sheet{background:var(--card);width:100%;max-width:760px;margin:0 auto;border-radius:28px 28px 0 0;padding:18px 18px calc(24px + env(safe-area-inset-bottom));max-height:88vh;overflow:auto}.handle{width:44px;height:5px;background:var(--border);border-radius:9px;margin:0 auto 14px}.sheet h2{margin:0 0 16px}.field{margin:12px 0}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--border);background:var(--bg);color:var(--text);border-radius:14px;padding:13px;font-size:16px;outline:none}.field textarea{min-height:90px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.primary-btn{width:100%;border:0;background:var(--primary);color:white;border-radius:16px;padding:15px;font-weight:800;font-size:16px;margin-top:10px}.secondary-btn{width:100%;border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:16px;padding:13px;font-weight:700;margin-top:9px}.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.type-card{border:1px solid var(--border);background:var(--bg);color:var(--text);border-radius:18px;padding:18px;text-align:left}.type-card b{display:block;margin-top:8px}.settings{display:flex;flex-direction:column;gap:10px}.setting{background:var(--card);border:1px solid var(--border);padding:15px;border-radius:18px;display:flex;justify-content:space-between;align-items:center}.switch{width:50px;height:30px;background:var(--border);border-radius:99px;padding:3px}.switch::after{content:"";display:block;width:24px;height:24px;background:white;border-radius:50%;transition:.2s}.switch.on{background:var(--primary)}.switch.on::after{transform:translateX(20px)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--nav-h) + 90px);background:#20232d;color:white;padding:11px 16px;border-radius:999px;display:none;z-index:100;font-size:14px}.toast.show{display:block}
+@media(min-width:700px){.fab{right:calc((100vw - 760px)/2 + 18px)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div><h1 id="pageTitle">Nuestro espacio</h1><p id="pageSubtitle">Todo lo de ustedes, en un solo lugar</p></div>
+    <button class="icon-btn" id="themeBtn" aria-label="Cambiar tema">🌙</button>
+  </header>
+  <main>
+    <section class="view active" id="homeView">
+      <div class="hero"><h2>Hola, equipo 👋</h2><p>Hoy tienen <b id="heroPending">0 pendientes</b>.</p><div class="progress"><span id="heroProgress" style="width:0%"></span></div></div>
+      <div class="summary-grid">
+        <div class="summary"><div class="label">Tareas pendientes</div><div class="value" id="sumTasks">0</div></div>
+        <div class="summary"><div class="label">Compras pendientes</div><div class="value" id="sumShopping">0</div></div>
+        <div class="summary"><div class="label">Gastos del mes</div><div class="value" id="sumExpenses">S/ 0</div></div>
+        <div class="summary"><div class="label">Próximos eventos</div><div class="value" id="sumEvents">0</div></div>
+      </div>
+      <div class="section-title"><h2>Próximos pendientes</h2><button onclick="goTo('tasks')">Ver todos</button></div>
+      <div class="list" id="homeList"></div>
+    </section>
+
+    <section class="view" id="tasksView">
+      <div class="filters" id="taskFilters">
+        <button class="filter active" data-filter="all">Todos</button><button class="filter" data-filter="pending">Pendientes</button><button class="filter" data-filter="done">Completados</button><button class="filter" data-filter="Yo">Yo</button><button class="filter" data-filter="Mi pareja">Mi pareja</button><button class="filter" data-filter="Ambos">Ambos</button>
+      </div><div class="list" id="tasksList"></div>
+    </section>
+
+    <section class="view" id="shoppingView">
+      <div class="budget"><div class="budget-row"><span>Presupuesto</span><strong id="budgetTotal">S/ 0</strong></div><div class="budget-row"><span>Estimado pendiente</span><span id="budgetUsed">S/ 0</span></div><div class="budget-row"><span>Disponible</span><span id="budgetLeft">S/ 0</span></div><button class="secondary-btn" onclick="editBudget()">Editar presupuesto</button></div>
+      <div class="filters" id="shoppingFilters"><button class="filter active" data-filter="all">Todo</button><button class="filter" data-filter="pending">Pendiente</button><button class="filter" data-filter="done">Comprado</button></div>
+      <div class="list" id="shoppingList"></div>
+    </section>
+
+    <section class="view" id="calendarView">
+      <div class="calendar" id="calendarGrid"></div>
+      <div class="section-title"><h2>Eventos y gastos</h2></div><div class="list" id="calendarList"></div>
+    </section>
+
+    <section class="view" id="moreView">
+      <div class="section-title"><h2>Notas compartidas</h2><button onclick="openForm('note')">Agregar</button></div><div class="list" id="notesList"></div>
+      <div class="section-title"><h2>Configuración</h2></div>
+      <div class="settings">
+        <div class="setting"><div><b>Modo oscuro</b><div class="item-meta">Cambiar apariencia</div></div><button class="switch" id="darkSwitch" onclick="toggleTheme()"></button></div>
+        <div class="setting"><div><b>Exportar respaldo</b><div class="item-meta">Descarga tus datos en JSON</div></div><button class="icon-btn" onclick="exportData()">⬇️</button></div>
+        <div class="setting"><div><b>Importar respaldo</b><div class="item-meta">Restaurar archivo anterior</div></div><button class="icon-btn" onclick="document.getElementById('importFile').click()">⬆️</button></div>
+        <div class="setting"><div><b>Reiniciar datos</b><div class="item-meta">Volver al ejemplo inicial</div></div><button class="icon-btn" onclick="resetData()">🗑️</button></div>
+      </div>
+      <input id="importFile" type="file" accept="application/json" hidden />
+    </section>
+  </main>
+</div>
+<button class="fab" id="fab" onclick="openTypePicker()">＋</button>
+<nav class="bottom-nav"><div class="nav-inner">
+  <button class="nav-btn active" data-view="home"><span>⌂</span>Inicio</button>
+  <button class="nav-btn" data-view="tasks"><span>✓</span>Tareas</button>
+  <button class="nav-btn" data-view="shopping"><span>🛒</span>Compras</button>
+  <button class="nav-btn" data-view="calendar"><span>▣</span>Agenda</button>
+  <button class="nav-btn" data-view="more"><span>•••</span>Más</button>
+</div></nav>
+
+<div class="modal" id="typeModal"><div class="sheet"><div class="handle"></div><h2>¿Qué deseas agregar?</h2><div class="type-grid">
+  <button class="type-card" onclick="openForm('task')">✅<b>Tarea</b></button><button class="type-card" onclick="openForm('shopping')">🛒<b>Compra</b></button><button class="type-card" onclick="openForm('expense')">💰<b>Gasto</b></button><button class="type-card" onclick="openForm('event')">📅<b>Evento</b></button><button class="type-card" onclick="openForm('note')">📝<b>Nota</b></button>
+</div><button class="secondary-btn" onclick="closeModal('typeModal')">Cancelar</button></div></div>
+
+<div class="modal" id="formModal"><div class="sheet"><div class="handle"></div><h2 id="formTitle">Agregar</h2><form id="itemForm"><div id="formFields"></div><button class="primary-btn" type="submit">Guardar</button><button class="secondary-btn" type="button" onclick="closeModal('formModal')">Cancelar</button></form></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const initialData={
+  budget:500,
+  tasks:[
+    {id:uid(),title:'Pagar internet',date:todayPlus(1),priority:'Alta',assigned:'Yo',category:'Pagos',done:false},
+    {id:uid(),title:'Ordenar el clóset',date:todayPlus(3),priority:'Media',assigned:'Ambos',category:'Hogar',done:false},
+    {id:uid(),title:'Separar documentos importantes',date:todayPlus(5),priority:'Baja',assigned:'Mi pareja',category:'Personal',done:true}
+  ],
+  shopping:[
+    {id:uid(),title:'Detergente',qty:1,price:24.9,category:'Supermercado',assigned:'Yo',done:false},
+    {id:uid(),title:'Organizador para cocina',qty:2,price:35,category:'Hogar',assigned:'Ambos',done:false},
+    {id:uid(),title:'Frutas',qty:1,price:30,category:'Supermercado',assigned:'Mi pareja',done:true}
+  ],
+  expenses:[{id:uid(),title:'Supermercado',amount:145.8,paidBy:'Yo',date:todayPlus(-2),category:'Comida'}],
+  events:[{id:uid(),title:'Salida juntos',date:todayPlus(4),time:'18:30',category:'Pareja'}],
+  notes:[{id:uid(),title:'Ideas para el departamento',text:'• Repisa para la sala\n• Lámpara cálida\n• Plantas pequeñas'}],
+  theme:'light'
+};
+let data=loadData();let currentView='home';let currentFormType='task';let taskFilter='all',shoppingFilter='all';
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function todayPlus(n){const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
+function loadData(){try{return JSON.parse(localStorage.getItem('nuestroEspacioData'))||structuredClone(initialData)}catch(e){return structuredClone(initialData)}}
+function save(){localStorage.setItem('nuestroEspacioData',JSON.stringify(data));renderAll()}
+function money(n){return 'S/ '+Number(n||0).toFixed(2).replace('.00','')}
+function niceDate(s){if(!s)return 'Sin fecha';return new Date(s+'T12:00:00').toLocaleDateString('es-PE',{day:'numeric',month:'short'})}
+function escapeHTML(s=''){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+function goTo(view){currentView=view;document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(view+'View').classList.add('active');document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.view===view));const titles={home:['Nuestro espacio','Todo lo de ustedes, en un solo lugar'],tasks:['Tareas','Organicen y repartan pendientes'],shopping:['Compras','Controlen lo que falta y el presupuesto'],calendar:['Agenda','Eventos y movimientos importantes'],more:['Más','Notas, respaldo y preferencias']};document.getElementById('pageTitle').textContent=titles[view][0];document.getElementById('pageSubtitle').textContent=titles[view][1];window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('.nav-btn').forEach(b=>b.onclick=()=>goTo(b.dataset.view));
+function taskCard(x,type='task'){
+ const meta=type==='task'?`${niceDate(x.date)} · ${x.assigned} · ${x.priority}`:type==='shopping'?`${x.qty||1} und · ${money(x.price)} · ${x.category}`:type==='event'?`${niceDate(x.date)} ${x.time||''} · ${x.category}`:`${niceDate(x.date)} · ${x.paidBy}`;
+ const done=x.done? 'done':'';return `<div class="item ${done}"><button class="check ${done}" onclick="toggleDone('${type}','${x.id}')">${x.done?'✓':''}</button><div class="item-main"><div class="item-title">${escapeHTML(x.title)}</div><div class="item-meta"><span class="tag">${escapeHTML(meta)}</span></div></div><div class="item-actions"><button class="mini" onclick="deleteItem('${type}','${x.id}')">×</button></div></div>`
+}
+function renderHome(){const tp=data.tasks.filter(x=>!x.done),sp=data.shopping.filter(x=>!x.done);document.getElementById('sumTasks').textContent=tp.length;document.getElementById('sumShopping').textContent=sp.length;const now=new Date(),m=data.expenses.filter(x=>{const d=new Date(x.date+'T12:00:00');return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear()}).reduce((a,b)=>a+Number(b.amount),0);document.getElementById('sumExpenses').textContent=money(m);document.getElementById('sumEvents').textContent=data.events.filter(x=>new Date(x.date+'T23:59:00')>=new Date()).length;const total=data.tasks.length+data.shopping.length,done=data.tasks.filter(x=>x.done).length+data.shopping.filter(x=>x.done).length,pending=total-done;document.getElementById('heroPending').textContent=pending+' pendiente'+(pending===1?'':'s');document.getElementById('heroProgress').style.width=(total?done/total*100:0)+'%';const upcoming=[...tp.map(x=>({...x,type:'task'})),...sp.map(x=>({...x,type:'shopping'}))].slice(0,4);document.getElementById('homeList').innerHTML=upcoming.length?upcoming.map(x=>taskCard(x,x.type)).join(''):'<div class="empty">No tienen pendientes 🎉</div>'}
+function renderTasks(){let arr=[...data.tasks];if(taskFilter==='pending')arr=arr.filter(x=>!x.done);else if(taskFilter==='done')arr=arr.filter(x=>x.done);else if(['Yo','Mi pareja','Ambos'].includes(taskFilter))arr=arr.filter(x=>x.assigned===taskFilter);document.getElementById('tasksList').innerHTML=arr.length?arr.map(x=>taskCard(x,'task')).join(''):'<div class="empty">No hay tareas en este filtro</div>'}
+function renderShopping(){let arr=[...data.shopping];if(shoppingFilter==='pending')arr=arr.filter(x=>!x.done);if(shoppingFilter==='done')arr=arr.filter(x=>x.done);document.getElementById('shoppingList').innerHTML=arr.length?arr.map(x=>taskCard(x,'shopping')).join(''):'<div class="empty">No hay compras aquí</div>';const used=data.shopping.filter(x=>!x.done).reduce((a,b)=>a+Number(b.price||0)*Number(b.qty||1),0);document.getElementById('budgetTotal').textContent=money(data.budget);document.getElementById('budgetUsed').textContent=money(used);document.getElementById('budgetLeft').textContent=money(data.budget-used)}
+function renderCalendar(){const d=new Date(),y=d.getFullYear(),m=d.getMonth(),first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();let h=['D','L','M','M','J','V','S'].map(x=>`<div class="weekday">${x}</div>`).join('');for(let i=0;i<first;i++)h+='<div></div>';const marked=new Set([...data.events.map(x=>x.date),...data.expenses.map(x=>x.date)]);for(let day=1;day<=days;day++){const ds=`${y}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;h+=`<div class="day ${day===d.getDate()?'today':''} ${marked.has(ds)?'has':''}">${day}</div>`}document.getElementById('calendarGrid').innerHTML=h;const arr=[...data.events.map(x=>({...x,type:'event'})),...data.expenses.map(x=>({...x,type:'expense'}))].sort((a,b)=>a.date.localeCompare(b.date));document.getElementById('calendarList').innerHTML=arr.length?arr.map(x=>taskCard(x,x.type)).join(''):'<div class="empty">No hay eventos ni gastos</div>'}
+function renderNotes(){document.getElementById('notesList').innerHTML=data.notes.length?data.notes.map(n=>`<div class="note"><div style="display:flex;justify-content:space-between;gap:10px"><h3>${escapeHTML(n.title)}</h3><button class="mini" onclick="deleteItem('note','${n.id}')">×</button></div><p>${escapeHTML(n.text)}</p></div>`).join(''):'<div class="empty">Aún no tienen notas compartidas</div>'}
+function renderAll(){renderHome();renderTasks();renderShopping();renderCalendar();renderNotes();applyTheme()}
+function toggleDone(type,id){const arr=data[type==='shopping'?'shopping':'tasks'];const x=arr.find(i=>i.id===id);if(x){x.done=!x.done;save()}}
+function deleteItem(type,id){const key=type==='expense'?'expenses':type==='event'?'events':type==='note'?'notes':type==='shopping'?'shopping':'tasks';data[key]=data[key].filter(x=>x.id!==id);save();showToast('Elemento eliminado')}
+function openTypePicker(){document.getElementById('typeModal').classList.add('open')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+function openForm(type){currentFormType=type;closeModal('typeModal');const titles={task:'Nueva tarea',shopping:'Nueva compra',expense:'Nuevo gasto',event:'Nuevo evento',note:'Nueva nota'};document.getElementById('formTitle').textContent=titles[type];let f='';if(type==='task')f=`<div class="field"><label>Tarea</label><input name="title" required placeholder="Ej. Pagar internet"></div><div class="row"><div class="field"><label>Fecha</label><input name="date" type="date" value="${todayPlus(0)}"></div><div class="field"><label>Prioridad</label><select name="priority"><option>Alta</option><option selected>Media</option><option>Baja</option></select></div></div><div class="row"><div class="field"><label>Responsable</label><select name="assigned"><option>Yo</option><option>Mi pareja</option><option>Ambos</option></select></div><div class="field"><label>Categoría</label><input name="category" value="Hogar"></div></div>`;
+if(type==='shopping')f=`<div class="field"><label>Producto</label><input name="title" required placeholder="Ej. Leche"></div><div class="row"><div class="field"><label>Cantidad</label><input name="qty" type="number" min="1" value="1"></div><div class="field"><label>Precio estimado</label><input name="price" type="number" step="0.01" value="0"></div></div><div class="row"><div class="field"><label>Categoría</label><select name="category"><option>Supermercado</option><option>Hogar</option><option>Farmacia</option><option>Bebé</option><option>Ropa</option><option>Otros</option></select></div><div class="field"><label>Responsable</label><select name="assigned"><option>Yo</option><option>Mi pareja</option><option>Ambos</option></select></div></div>`;
+if(type==='expense')f=`<div class="field"><label>Descripción</label><input name="title" required placeholder="Ej. Supermercado"></div><div class="row"><div class="field"><label>Monto</label><input name="amount" type="number" step="0.01" required></div><div class="field"><label>Fecha</label><input name="date" type="date" value="${todayPlus(0)}"></div></div><div class="row"><div class="field"><label>Pagó</label><select name="paidBy"><option>Yo</option><option>Mi pareja</option><option>Ambos</option></select></div><div class="field"><label>Categoría</label><input name="category" value="Hogar"></div></div>`;
+if(type==='event')f=`<div class="field"><label>Evento</label><input name="title" required placeholder="Ej. Cena juntos"></div><div class="row"><div class="field"><label>Fecha</label><input name="date" type="date" value="${todayPlus(1)}"></div><div class="field"><label>Hora</label><input name="time" type="time" value="18:00"></div></div><div class="field"><label>Categoría</label><input name="category" value="Pareja"></div>`;
+if(type==='note')f=`<div class="field"><label>Título</label><input name="title" required placeholder="Ej. Ideas para la casa"></div><div class="field"><label>Contenido</label><textarea name="text" required placeholder="Escriban aquí..."></textarea></div>`;
+document.getElementById('formFields').innerHTML=f;document.getElementById('formModal').classList.add('open')}
+document.getElementById('itemForm').onsubmit=e=>{e.preventDefault();const o=Object.fromEntries(new FormData(e.target).entries());o.id=uid();if(currentFormType==='task'){o.done=false;data.tasks.unshift(o)}if(currentFormType==='shopping'){o.qty=Number(o.qty);o.price=Number(o.price);o.done=false;data.shopping.unshift(o)}if(currentFormType==='expense'){o.amount=Number(o.amount);data.expenses.unshift(o)}if(currentFormType==='event')data.events.unshift(o);if(currentFormType==='note')data.notes.unshift(o);closeModal('formModal');e.target.reset();save();showToast('Guardado correctamente')}
+document.getElementById('taskFilters').onclick=e=>{if(!e.target.matches('.filter'))return;taskFilter=e.target.dataset.filter;document.querySelectorAll('#taskFilters .filter').forEach(x=>x.classList.toggle('active',x===e.target));renderTasks()}
+document.getElementById('shoppingFilters').onclick=e=>{if(!e.target.matches('.filter'))return;shoppingFilter=e.target.dataset.filter;document.querySelectorAll('#shoppingFilters .filter').forEach(x=>x.classList.toggle('active',x===e.target));renderShopping()}
+function editBudget(){const v=prompt('Nuevo presupuesto para compras:',data.budget);if(v!==null&&!isNaN(v)){data.budget=Number(v);save()}}
+function toggleTheme(){data.theme=data.theme==='dark'?'light':'dark';save()}
+function applyTheme(){document.body.classList.toggle('dark',data.theme==='dark');document.getElementById('themeBtn').textContent=data.theme==='dark'?'☀️':'🌙';document.getElementById('darkSwitch').classList.toggle('on',data.theme==='dark')}
+document.getElementById('themeBtn').onclick=toggleTheme;
+function exportData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='nuestro-espacio-respaldo.json';a.click();URL.revokeObjectURL(a.href);showToast('Respaldo descargado')}
+document.getElementById('importFile').onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=()=>{try{data=JSON.parse(r.result);save();showToast('Respaldo importado')}catch{alert('El archivo no es válido')}};r.readAsText(file)}
+function resetData(){if(confirm('¿Deseas reiniciar todos los datos?')){data=structuredClone(initialData);save();showToast('Datos reiniciados')}}
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+renderAll();
+</script>
+</body>
+</html>
