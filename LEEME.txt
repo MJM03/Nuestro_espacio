@@ -11,3 +11,10 @@ Correcciones:
 Sube todos los archivos al mismo nivel de tu repositorio de GitHub Pages.
 Después abre la app, ciérrala por completo y vuelve a abrirla para activar el nuevo service worker.
 Tus datos locales se conservan porque sigue usando la clave nuestroEspacioPro.
+
+
+NOVEDADES v5.2.0
+- Ingresos extra mensuales.
+- Compras realizadas pasan automáticamente a despensa.
+- Cada compra queda vinculada con su gasto e historial.
+- Al reabrir o eliminar una compra se revierte gasto, historial y despensa.

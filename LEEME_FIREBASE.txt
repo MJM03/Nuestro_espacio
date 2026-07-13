@@ -1,4 +1,4 @@
-NUESTRO ESPACIO v5.1.0 — FIREBASE
+NUESTRO ESPACIO v5.2.0 — FIREBASE
 
 1. Sube todos los archivos al mismo nivel en GitHub Pages.
 2. Conserva el mismo dominio para mantener la copia local del dispositivo.
@@ -6,3 +6,10 @@ NUESTRO ESPACIO v5.1.0 — FIREBASE
 4. El nuevo logo sobrio está incluido en los iconos PWA.
 5. Si el icono anterior persiste en iPhone, elimina el acceso de la pantalla de inicio y vuelve a agregarlo desde Safari.
 6. La pantalla Cuenta y sincronización permite copiar o compartir el código del hogar, forzar sincronización y descargar respaldo.
+
+
+NOVEDADES v5.2.0
+- Ingresos extra mensuales.
+- Compras realizadas pasan automáticamente a despensa.
+- Cada compra queda vinculada con su gasto e historial.
+- Al reabrir o eliminar una compra se revierte gasto, historial y despensa.
