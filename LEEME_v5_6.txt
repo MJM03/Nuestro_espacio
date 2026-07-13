@@ -1,0 +1,11 @@
+NUESTRO ESPACIO v5.6.0
+
+Novedades:
+- Panel Mi Hogar con margen seguro, mercado, tareas, despensa y gasto mensual.
+- Despensa visual con barras de nivel y alertas.
+- Consumo diario configurable para estimar duración.
+- Avisos de vencimiento próximos.
+- Botón para enviar productos bajos directamente al mercado.
+- Compatible con Firebase y los datos de versiones anteriores.
+
+Sube todos los archivos al mismo nivel de tu repositorio GitHub Pages.
