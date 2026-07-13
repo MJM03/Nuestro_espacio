@@ -73,7 +73,7 @@ body.dark .logo,body.dark .firebase-logo{background:linear-gradient(145deg,#2629
 <div class="recipe-filter-toolbar"><div class="filters" id="recipeQuickFilters"><button class="filter active" data-rfilter="all">Todos los platos</button><button class="filter" data-rfilter="favorites">Favoritas</button><button class="filter" data-rfilter="quick">≤ 45 min</button><button class="filter" data-rfilter="economic">Económicas</button></div><button class="recipe-reset" id="recipeResetBtn" type="button">↻ Limpiar filtros</button></div>
 <div class="recipe-grid" id="recipeGrid"></div></section>
 <section class="view" id="statsView"><div class="grid2"><div class="metric"><small>Compras registradas</small><b id="sPurchases">0</b></div><div class="metric"><small>Ahorro vs estimado</small><b id="sSavings">S/ 0</b></div></div><div class="section-head"><h2>Gasto últimos 6 meses</h2></div><div class="card"><div class="chart" id="monthChart"></div></div><div class="section-head"><h2>Gasto por categoría</h2></div><div class="list" id="categoryStats"></div><div class="section-head"><h2>Historial de precios</h2></div><div class="list" id="priceHistory"></div></section>
-<section class="view" id="moreView"><div class="settings"><div class="setting"><div><b>Cuenta y sincronización</b><small>Hogar, invitación, estado y respaldo</small></div><button class="text-btn" onclick="openFirebaseAccount()">Abrir</button></div><div class="setting"><div><b>Catálogo Pro ampliado</b><small id="catalogCount"></small></div><button class="text-btn" onclick="openCatalog()">Abrir</button></div><div class="setting"><div><b>Favoritos</b><small>Productos usados con frecuencia</small></div><button class="text-btn" onclick="showFavorites()">Ver</button></div><div class="setting"><div><b>Gastos y notas</b><small>Registros adicionales del hogar</small></div><button class="text-btn" onclick="openRecords()">Abrir</button></div><div class="setting"><div><b>Gastos fijos mensuales</b><small>Casa, celular, pasajes, servicios y suscripciones</small></div><button class="text-btn" onclick="openFixedExpenses()">Administrar</button></div><div class="setting"><div><b>Sueldo mensual</b><small>Calcula cuánto queda después de compromisos y mercado</small></div><button class="text-btn" onclick="editMonthlyIncome()">Configurar</button></div><div class="card version-card" id="versionCard"><div class="version-row"><div><b>Versión de la aplicación</b><small style="display:block;color:var(--muted);margin-top:3px">Nuestro Espacio v5.3.0</small></div><button class="text-btn" onclick="checkForUpdate(true)">Buscar actualización</button></div><div class="version-status" id="versionStatus">Compilación: 13/07/2026 12:30 (Lima)</div></div><div class="setting"><div><b>Exportar respaldo</b><small>Descarga todos tus datos</small></div><button class="text-btn" onclick="exportData()">Exportar</button></div><label class="setting"><div><b>Importar respaldo</b><small>Restaura un archivo JSON</small></div><input id="importFile" type="file" accept="application/json" hidden><span class="text-btn">Importar</span></label><div class="setting"><div><b>Reiniciar aplicación</b><small>Elimina los datos locales</small></div><button class="text-btn danger" onclick="resetData()">Reiniciar</button></div><div class="card"><b>Precios referenciales</b><p class="meta">Los precios son semillas editables para Lima. La app aprende con los precios reales que registran y prioriza su promedio personal.</p></div></div></section>
+<section class="view" id="moreView"><div class="settings"><div class="setting"><div><b>Cuenta y sincronización</b><small>Hogar, invitación, estado y respaldo</small></div><button class="text-btn" onclick="openFirebaseAccount()">Abrir</button></div><div class="setting"><div><b>Catálogo Pro ampliado</b><small id="catalogCount"></small></div><button class="text-btn" onclick="openCatalog()">Abrir</button></div><div class="setting"><div><b>Favoritos</b><small>Productos usados con frecuencia</small></div><button class="text-btn" onclick="showFavorites()">Ver</button></div><div class="setting"><div><b>Gastos y notas</b><small>Registros adicionales del hogar</small></div><button class="text-btn" onclick="openRecords()">Abrir</button></div><div class="setting"><div><b>Gastos fijos mensuales</b><small>Casa, celular, pasajes, servicios y suscripciones</small></div><button class="text-btn" onclick="openFixedExpenses()">Administrar</button></div><div class="setting"><div><b>Sueldo mensual</b><small>Calcula cuánto queda después de compromisos y mercado</small></div><button class="text-btn" onclick="editMonthlyIncome()">Configurar</button></div><div class="card version-card" id="versionCard"><div class="version-row"><div><b>Versión de la aplicación</b><small style="display:block;color:var(--muted);margin-top:3px">Nuestro Espacio v5.4.0</small></div><button class="text-btn" onclick="checkForUpdate(true)">Buscar actualización</button></div><div class="version-status" id="versionStatus">Compilación: 13/07/2026 12:30 (Lima)</div></div><div class="setting"><div><b>Exportar respaldo</b><small>Descarga todos tus datos</small></div><button class="text-btn" onclick="exportData()">Exportar</button></div><label class="setting"><div><b>Importar respaldo</b><small>Restaura un archivo JSON</small></div><input id="importFile" type="file" accept="application/json" hidden><span class="text-btn">Importar</span></label><div class="setting"><div><b>Reiniciar aplicación</b><small>Elimina los datos locales</small></div><button class="text-btn danger" onclick="resetData()">Reiniciar</button></div><div class="card"><b>Precios referenciales</b><p class="meta">Los precios son semillas editables para Lima. La app aprende con los precios reales que registran y prioriza su promedio personal.</p></div></div></section>
 <div class="modal" id="recipeDetailModal"><div class="sheet"><div class="sheet-head"><h2>Receta peruana</h2><button class="close" onclick="closeModal('recipeDetailModal')">×</button></div><div id="recipeDetailContent"></div></div></div></main><button class="fab" id="fab">＋</button><nav class="nav"><div class="nav-inner"><button class="active" data-view="home"><span>⌂</span>Inicio</button><button data-view="tasks"><span>✓</span>Tareas</button><button data-view="market"><span>🛒</span>Mercado</button><button data-view="recipes"><span>🍽️</span>Recetas</button><button data-view="stats"><span>▥</span>Estadísticas</button><button data-view="more"><span>•••</span>Más</button></div></nav></div>
 <div class="pwa-install" id="pwaInstallCard">
 <div class="budget-top"><div><small>APLICACIÓN INSTALABLE</small><strong style="display:block;font-size:20px;margin-top:4px">Nuestro Espacio en tu inicio</strong></div><span style="font-size:30px">📲</span></div>
@@ -264,7 +264,7 @@ renderUltraHome();persistUltra();
 
 initCatalogChips();renderAll();applyTheme();
 
-const APP_VERSION='5.1.0';
+const APP_VERSION='5.4.0';
 const APP_BUILD='13/07/2026 04:25 (Lima)';
 function compareVersions(a,b){const pa=String(a).split('.').map(Number),pb=String(b).split('.').map(Number);for(let i=0;i<Math.max(pa.length,pb.length);i++){const x=pa[i]||0,y=pb[i]||0;if(x>y)return 1;if(x<y)return -1}return 0}
 function setVersionStatus(text,type=''){const el=document.getElementById('versionStatus');if(!el)return;el.textContent=text;el.className='version-status'+(type?' '+type:'')}
@@ -455,7 +455,7 @@ renderAll();
 
 <script id="v53PayCycleEnhancements">
 (()=>{
-  const VERSION='5.3.0';
+  const VERSION='5.4.0';
   const monthKey=(date=new Date())=>`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}`;
   const lastDay=(date=new Date())=>new Date(date.getFullYear(),date.getMonth()+1,0).getDate();
   const num=v=>Number(v||0);
@@ -530,7 +530,11 @@ renderAll();
     .salary-row{display:grid;grid-template-columns:1fr 1fr;gap:9px}.salary-payment-card{padding:13px;border:1px solid var(--line);border-radius:16px;background:var(--card);margin-bottom:10px}
     .salary-payment-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.salary-payment-head b{font-size:15px}.status-chip{font-size:10px;font-weight:800;padding:5px 8px;border-radius:999px;background:var(--soft)}
     .flow-table{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:7px;align-items:center;font-size:11px;padding:8px 0;border-bottom:1px solid var(--line)}.flow-table:last-child{border-bottom:0}.flow-table b{text-align:right}
-    @media(max-width:390px){.paycycle-grid,.salary-row{grid-template-columns:1fr}}
+    .cashflow-hero{padding:2px 0 4px}.cashflow-hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}.cashflow-hero-top small{display:block;font-size:10px;letter-spacing:.09em;opacity:.78}.cashflow-main{display:block;font-size:38px;line-height:1.05;margin:7px 0 3px}.cashflow-main.negative{color:#ffd1cb}.cashflow-hero-top span{font-size:12px;opacity:.78}.cashflow-config{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);color:#fff;border-radius:999px;padding:8px 12px;font-weight:800}.cashflow-explain{margin-top:12px;padding:10px 12px;border-radius:13px;background:rgba(255,255,255,.08);font-size:11px;line-height:1.45;color:rgba(255,255,255,.86)}
+    .cashflow-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.cashflow-breakdown>div{padding:9px 10px;border-radius:12px;background:rgba(255,255,255,.07);display:flex;justify-content:space-between;gap:8px;font-size:10px}.cashflow-breakdown span{opacity:.7}.cashflow-breakdown b{font-size:11px}
+    .next-income-card{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:12px 0;padding:12px 13px;border-radius:15px;background:rgba(212,170,93,.18);border:1px solid rgba(212,170,93,.35)}.next-income-card.warning{background:rgba(232,112,95,.16);border-color:rgba(255,174,160,.35)}.next-income-card small{display:block;font-size:9px;letter-spacing:.08em;opacity:.72}.next-income-card b{display:block;font-size:14px;margin:3px 0}.next-income-card span{font-size:10px;opacity:.75}.next-income-icon{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.12);font-weight:900}
+    .period-title{display:flex;align-items:center;justify-content:space-between;margin-top:4px}.period-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.period-head span{font-size:8px;font-weight:900;padding:4px 7px;border-radius:999px;background:rgba(255,255,255,.1)}.period-sub{font-size:9px;opacity:.66;margin-top:-2px}.period-progress{height:5px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;margin:9px 0}.period-progress i{display:block;height:100%;border-radius:inherit;background:#d7b465}
+    @media(max-width:390px){.paycycle-grid,.salary-row{grid-template-columns:1fr}.cashflow-breakdown{grid-template-columns:1fr 1fr}.cashflow-main{font-size:34px}}
   `;document.head.appendChild(css);
 
   const homeIncome=document.getElementById('incomeHomeSummary');
@@ -554,14 +558,68 @@ renderAll();
 
   const oldExtraForm=window.openExtraIncomeForm;window.openExtraIncomeForm=function(id=''){oldExtraForm(id);const form=document.getElementById('extraIncomeForm');if(form){addPayPeriodField(form);const x=(data.extraIncomes||[]).find(v=>v.id===id);form.elements.payPeriod.value=x?.payPeriod||'auto'}};
 
+  function nextSalaryPayment(now=new Date()){
+    const active=(data.salaryPayments||[]).filter(x=>x.active!==false);
+    if(!active.length)return null;
+    const todayStart=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    const candidates=[];
+    for(const p of active){
+      for(let offset=0;offset<=1;offset++){
+        const base=new Date(now.getFullYear(),now.getMonth()+offset,1);
+        const day=paymentDay(p,base);
+        const date=new Date(base.getFullYear(),base.getMonth(),day);
+        if(date>=todayStart)candidates.push({...p,date});
+      }
+    }
+    candidates.sort((a,b)=>a.date-b.date);
+    const next=candidates[0];
+    if(!next)return null;
+    next.days=Math.max(0,Math.round((next.date-todayStart)/86400000));
+    return next;
+  }
+  function receivedIncomeSummary(now=new Date()){
+    const salary=(data.salaryPayments||[]).filter(x=>x.active!==false&&paymentReceived(x,now)).reduce((s,x)=>s+num(x.amount),0);
+    const todayIso=now.toISOString().slice(0,10),key=monthKey(now);
+    const extra=(data.extraIncomes||[]).filter(x=>String(x.date||'').slice(0,7)===key&&String(x.date||todayIso)<=todayIso).reduce((s,x)=>s+num(x.amount),0);
+    return {salary,extra,total:salary+extra};
+  }
+  function safeCashSummary(now=new Date()){
+    const current=now.getDate()<=15?'first':'second';
+    const received=receivedIncomeSummary(now);
+    const actual=(data.expenses||[]).filter(x=>String(x.date||'').slice(0,7)===monthKey(now)).reduce((s,x)=>s+num(x.amount),0);
+    const fixed=fixedFor(current);
+    const market=marketFor(current);
+    const reserved=fixed+market;
+    return {current,received,actual,fixed,market,reserved,safe:received.total-actual-reserved};
+  }
   function renderPayCycleHome(){
     ensurePayCycle();const el=document.getElementById('payCycleHomeSummary');if(!el)return;
-    const first=periodData('first'),second=periodData('second'),now=new Date(),current=now.getDate()<=15?'first':'second',cur=current==='first'?first:second;
-    const nextPayment=data.salaryPayments.filter(x=>x.active!==false).map(x=>({...x,dayNum:paymentDay(x,now)})).filter(x=>x.dayNum>=now.getDate()).sort((a,b)=>a.dayNum-b.dayNum)[0]||data.salaryPayments.filter(x=>x.active!==false)[0];
-    const safe=periodData(current,true).balance;
-    el.innerHTML=`<div class="budget-top"><div><small>FLUJO HASTA LA PRÓXIMA PAGA</small><strong>${money(safe)}</strong></div><button class="text-btn" style="color:#fff" onclick="openPayCycle()">Configurar</button></div><div class="paycycle-grid">${periodCard('Primera quincena',first)}${periodCard('Fin de mes',second)}</div><div class="next-pay"><b>${safe<0?'⚠️ Saldo insuficiente':'✓ Saldo seguro estimado'}</b><div class="meta">${nextPayment?`Próximo pago: ${esc(nextPayment.title)} · ${money(nextPayment.amount)} · día ${paymentDay(nextPayment,now)}`:'No hay pagos activos configurados.'}</div></div>`;
+    const now=new Date(),summary=safeCashSummary(now),first=periodData('first'),second=periodData('second'),next=nextSalaryPayment(now);
+    const safe=summary.safe,daysText=next?(next.days===0?'hoy':next.days===1?'mañana':`en ${next.days} días`):'';
+    const headline=safe>=0?'Margen seguro estimado':'Monto por cubrir';
+    const helper=safe>=0?`Después de reservar fijos y mercado, mantienes ${money(safe)} disponibles.`:`Tus reservas superan el dinero recibido por ${money(Math.abs(safe))}.`;
+    el.innerHTML=`
+      <div class="cashflow-hero">
+        <div class="cashflow-hero-top"><div><small>DINERO DISPONIBLE HOY</small><strong class="cashflow-main ${safe<0?'negative':''}">${money(safe)}</strong><span>${headline}</span></div><button class="cashflow-config" onclick="openPayCycle()">Configurar</button></div>
+        <div class="cashflow-explain">${helper}</div>
+        <div class="cashflow-breakdown">
+          <div><span>Recibido</span><b>${money(summary.received.total)}</b></div>
+          <div><span>Gastos registrados</span><b>− ${money(summary.actual)}</b></div>
+          <div><span>Fijos reservados</span><b>− ${money(summary.fixed)}</b></div>
+          <div><span>Mercado pendiente</span><b>− ${money(summary.market)}</b></div>
+        </div>
+      </div>
+      <div class="next-income-card ${safe<0?'warning':''}">
+        <div><small>PRÓXIMO INGRESO</small><b>${next?`${esc(next.title)} · ${money(next.amount)}`:'Sin pagos configurados'}</b><span>${next?`${next.date.toLocaleDateString('es-PE',{day:'numeric',month:'long'})} · ${daysText}`:'Configura tus pagos de sueldo'}</span></div>
+        <div class="next-income-icon">${safe<0?'!':'✓'}</div>
+      </div>
+      <div class="period-title"><b>Proyección del mes</b><button class="text-btn" style="color:#d7b465" onclick="openPayCycle()">Ver detalle</button></div>
+      <div class="paycycle-grid">${periodCard('Primera quincena',first,now.getDate()<=15?'current':'past')}${periodCard('Fin de mes',second,now.getDate()>15?'current':'next')}</div>`;
   }
-  function periodCard(title,p){return `<div class="paycycle-period ${p.balance<0?'negative':''}"><small>${title.toUpperCase()}</small><strong>${money(p.balance)}</strong><div class="paycycle-line"><span>Ingresos</span><b>${money(p.income)}</b></div><div class="paycycle-line"><span>Fijos</span><b>− ${money(p.fixed)}</b></div><div class="paycycle-line"><span>Mercado</span><b>− ${money(p.market)}</b></div><div class="paycycle-line"><span>Otros</span><b>− ${money(p.expenses)}</b></div></div>`}
+  function periodCard(title,p,status='next'){
+    const used=p.income>0?Math.min(100,Math.max(0,(p.commitments/p.income)*100)):p.commitments>0?100:0;
+    const chip=status==='current'?'En curso':status==='past'?'Cerrada':'Próxima';
+    return `<div class="paycycle-period ${p.balance<0?'negative':''}"><div class="period-head"><small>${title.toUpperCase()}</small><span>${chip}</span></div><strong>${money(p.balance)}</strong><div class="period-sub">Saldo proyectado</div><div class="period-progress"><i style="width:${used}%"></i></div><div class="paycycle-line"><span>Ingresos</span><b>${money(p.income)}</b></div><div class="paycycle-line"><span>Compromisos</span><b>− ${money(p.commitments)}</b></div></div>`}
 
   window.openPayCycle=function(){ensurePayCycle();renderPayCycleModal();document.getElementById('payCycleModal').classList.add('open')};
   function renderPayCycleModal(){
@@ -587,7 +645,7 @@ renderAll();
 
   const oldRenderAll=window.renderAll;window.renderAll=function(){ensurePayCycle();oldRenderAll();renderPayCycleHome()};
   document.querySelectorAll('.version-card small').forEach(x=>x.textContent=x.textContent.replace(/v\d+\.\d+\.\d+/,'v'+VERSION));
-  const vs=document.getElementById('versionStatus');if(vs)vs.textContent='Compilación: 13/07/2026 · Flujo quincenal';
+  const vs=document.getElementById('versionStatus');if(vs)vs.textContent='Compilación: 13/07/2026 · Panel financiero claro';
   renderAll();
 })();
 </script>
