@@ -1,15 +1,13 @@
-NUESTRO ESPACIO ULTRA v4.0.0
+NUESTRO ESPACIO ULTRA PWA v4.0.1
 
-PWA lista para GitHub Pages.
+Correcciones:
+- Buscador de platos compatible con Safari/iPhone.
+- Búsqueda sin tildes y por varias palabras.
+- Todos los filtros incluyen la opción Todos.
+- Departamentos se actualizan según la región elegida.
+- Botón Limpiar filtros.
+- Mensaje claro cuando no hay resultados.
 
-Archivos: index.html, manifest.webmanifest, sw.js e iconos.
-
-NOVEDADES v4:
-- Biblioteca de recetas peruanas por región, departamento y ciudad.
-- Filtros, favoritos, tiempos, porciones y dificultad.
-- Costo estimado conectado al catálogo de precios.
-- Integración con despensa y lista de mercado.
-- Datos anteriores conservados con la clave localStorage nuestroEspacioPro.
-
-SUBIDA:
-Sube todos los archivos al mismo nivel del repositorio y reemplaza los anteriores.
+Sube todos los archivos al mismo nivel de tu repositorio de GitHub Pages.
+Después abre la app, ciérrala por completo y vuelve a abrirla para activar el nuevo service worker.
+Tus datos locales se conservan porque sigue usando la clave nuestroEspacioPro.

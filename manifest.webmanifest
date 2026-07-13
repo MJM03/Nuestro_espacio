@@ -1,7 +1,7 @@
 {
-  "name": "Nuestro Espacio Ultra v4",
+  "name": "Nuestro Espacio Ultra v4.0.1",
   "short_name": "Nuestro Espacio",
-  "description": "Organización del hogar, finanzas, mercado y cocina peruana por regiones.",
+  "description": "Organización del hogar, finanzas, mercado y cocina peruana con buscador y filtros corregidos.",
   "id": "./",
   "start_url": "./index.html",
   "scope": "./",
