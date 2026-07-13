@@ -1,20 +1,16 @@
-NUESTRO ESPACIO ULTRA PWA v4.0.1
+NUESTRO ESPACIO v5.3.0
 
-Correcciones:
-- Buscador de platos compatible con Safari/iPhone.
-- Búsqueda sin tildes y por varias palabras.
-- Todos los filtros incluyen la opción Todos.
-- Departamentos se actualizan según la región elegida.
-- Botón Limpiar filtros.
-- Mensaje claro cuando no hay resultados.
+Sube todos los archivos de esta carpeta a la raíz de tu repositorio de GitHub Pages.
 
-Sube todos los archivos al mismo nivel de tu repositorio de GitHub Pages.
-Después abre la app, ciérrala por completo y vuelve a abrirla para activar el nuevo service worker.
-Tus datos locales se conservan porque sigue usando la clave nuestroEspacioPro.
+NOVEDADES
+- Sueldo dividido en pagos configurables.
+- Valores iniciales: S/500 el día 15 y S/900 al fin de mes.
+- Estado por pago: automático, esperado, recibido o retrasado.
+- Asignación de gastos fijos, compras y gastos variables por quincena.
+- Opción para dividir compromisos entre ambas quincenas.
+- Vista de saldo seguro hasta la próxima paga.
+- Alertas de quincena insuficiente y sugerencias de redistribución.
+- Ingresos extra asociados automáticamente a la quincena de su fecha.
+- Firebase y datos anteriores compatibles.
 
-
-NOVEDADES v5.2.0
-- Ingresos extra mensuales.
-- Compras realizadas pasan automáticamente a despensa.
-- Cada compra queda vinculada con su gasto e historial.
-- Al reabrir o eliminar una compra se revierte gasto, historial y despensa.
+Después de publicar, cierra completamente la PWA y vuelve a abrirla para cargar la nueva caché.

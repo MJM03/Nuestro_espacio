@@ -1,4 +1,4 @@
-NUESTRO ESPACIO v5.2.0 — FIREBASE
+NUESTRO ESPACIO v5.3.0 — FIREBASE
 
 1. Sube todos los archivos al mismo nivel en GitHub Pages.
 2. Conserva el mismo dominio para mantener la copia local del dispositivo.
@@ -8,7 +8,7 @@ NUESTRO ESPACIO v5.2.0 — FIREBASE
 6. La pantalla Cuenta y sincronización permite copiar o compartir el código del hogar, forzar sincronización y descargar respaldo.
 
 
-NOVEDADES v5.2.0
+NOVEDADES v5.3.0
 - Ingresos extra mensuales.
 - Compras realizadas pasan automáticamente a despensa.
 - Cada compra queda vinculada con su gasto e historial.
