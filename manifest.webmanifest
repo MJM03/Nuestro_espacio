@@ -1,7 +1,7 @@
 {
-  "name": "Nuestro Espacio Firebase",
+  "name": "Nuestro Espacio",
   "short_name": "Nuestro Espacio",
-  "description": "Organizador del hogar compartido con sincronización Firebase.",
+  "description": "Organizador privado para el hogar, compras, tareas y finanzas compartidas.",
   "id": "./",
   "start_url": "./index.html",
   "scope": "./",
@@ -11,8 +11,8 @@
     "standalone",
     "minimal-ui"
   ],
-  "background_color": "#f5f6fb",
-  "theme_color": "#5b4fe9",
+  "background_color": "#f4f1ea",
+  "theme_color": "#17211b",
   "orientation": "portrait-primary",
   "lang": "es-PE",
   "categories": [
