@@ -1,0 +1,15 @@
+NUESTRO ESPACIO v5.5.0
+
+Cambios principales:
+- Panel financiero rediseñado con lectura paso a paso.
+- Muestra lo que tienes ahora, lo comprometido y el resultado real.
+- Semáforo financiero: cubierto, margen ajustado o faltante.
+- Proyección automática después del próximo ingreso.
+- Recomendación clara para postergar gastos no urgentes cuando sea necesario.
+- Mantiene Firebase, PWA, sincronización, gastos, compras, despensa e ingresos.
+
+Para actualizar GitHub Pages:
+1. Reemplaza todos los archivos del repositorio con los de este paquete.
+2. Espera la publicación de GitHub Pages.
+3. Cierra completamente la PWA y vuelve a abrirla.
+4. Confirma que la cabecera muestre v5.5.0.
