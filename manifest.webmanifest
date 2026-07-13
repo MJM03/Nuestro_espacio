@@ -1,7 +1,7 @@
 {
-  "name": "Nuestro Espacio Ultra",
+  "name": "Nuestro Espacio Ultra v4",
   "short_name": "Nuestro Espacio",
-  "description": "Organizador compartido del hogar: compras, presupuesto, gastos, tareas, despensa y metas.",
+  "description": "Organización del hogar, finanzas, mercado y cocina peruana por regiones.",
   "id": "./",
   "start_url": "./index.html",
   "scope": "./",
