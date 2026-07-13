@@ -1,4 +1,4 @@
-NUESTRO ESPACIO v5.8.0 — DOBLE UNIDAD
+NUESTRO ESPACIO v5.8.1 — DOBLE UNIDAD
 
 Novedades:
 - Compra por kg/litro/docena y control en despensa por unidades, piezas o porciones.
