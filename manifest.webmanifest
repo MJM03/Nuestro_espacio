@@ -1,7 +1,7 @@
 {
-  "name": "Nuestro Espacio Ultra v4.0.1",
+  "name": "Nuestro Espacio Firebase",
   "short_name": "Nuestro Espacio",
-  "description": "Organización del hogar, finanzas, mercado y cocina peruana con buscador y filtros corregidos.",
+  "description": "Organizador del hogar compartido con sincronización Firebase.",
   "id": "./",
   "start_url": "./index.html",
   "scope": "./",

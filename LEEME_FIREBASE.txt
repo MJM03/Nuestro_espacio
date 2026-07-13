@@ -1,0 +1,19 @@
+NUESTRO ESPACIO FIREBASE v5.0.0
+
+1. Sube TODOS estos archivos al mismo nivel de tu repositorio GitHub Pages.
+2. Reemplaza los archivos anteriores.
+3. Espera la publicación y abre la app.
+4. Crea tu cuenta y luego crea el hogar.
+5. La app detectará tus datos locales y ofrecerá migrarlos.
+6. Comparte el código de seis caracteres con tu pareja.
+
+Firebase configurado:
+- Proyecto: nuestro-espacio-d7132
+- Authentication: correo/contraseña
+- Firestore: hogar compartido en tiempo real
+- Persistencia offline: activada cuando el navegador la admite
+
+IMPORTANTE:
+- Antes de reemplazar tu PWA, exporta un respaldo desde la versión actual.
+- Mantén el mismo dominio de GitHub Pages para conservar localStorage.
+- El archivo firestore.rules contiene las reglas usadas por esta versión.
