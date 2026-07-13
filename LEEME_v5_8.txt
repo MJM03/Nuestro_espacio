@@ -1,0 +1,11 @@
+NUESTRO ESPACIO v5.8.0 — DOBLE UNIDAD
+
+Novedades:
+- Compra por kg/litro/docena y control en despensa por unidades, piezas o porciones.
+- Equivalencias editables por producto.
+- Confirmación de cantidad real al registrar una compra.
+- Conversión inversa para sugerir cuánto comprar al reponer.
+- Redondeo configurable de compra (por ejemplo, 0.5 kg).
+- Reversión vinculada de gasto y movimiento de despensa.
+
+Sube todos los archivos al mismo nivel en GitHub Pages y reemplaza los anteriores.

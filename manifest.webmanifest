@@ -1,7 +1,7 @@
 {
-  "name": "Nuestro Espacio",
+  "name": "Nuestro Espacio v5.8",
   "short_name": "Nuestro Espacio",
-  "description": "Organizador privado para el hogar, compras, tareas y finanzas compartidas.",
+  "description": "Organización financiera, mercado y despensa inteligente con doble unidad.",
   "id": "./",
   "start_url": "./index.html",
   "scope": "./",
