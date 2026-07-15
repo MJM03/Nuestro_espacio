@@ -82,3 +82,71 @@ input[type="checkbox"]:checked{background:var(--ios-green)!important;border-colo
 
 @media(min-width:720px){main,.main-content{max-width:680px!important;margin:auto!important}.header{max-width:720px!important;margin:auto!important}.bottom-nav,.nav{max-width:660px!important;margin:auto!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important}}
 @media(max-width:430px){.header{padding-left:14px!important;padding-right:14px!important}.brand h1{font-size:23px!important}.logo{width:44px!important;height:44px!important}.home-grid{gap:10px!important}.card{padding:14px!important}.sheet{padding-left:14px!important;padding-right:14px!important}.row{grid-template-columns:1fr!important}.fab{right:16px!important}}
+
+/* v5.9.1 — Light theme contrast + resilient modal system */
+body:not(.dark){
+  --glass:rgba(255,255,255,.86);
+}
+body:not(.dark) .card,
+body:not(.dark) .setting,
+body:not(.dark) .item-card,
+body:not(.dark) .pantry-card,
+body:not(.dark) .home-stat,
+body:not(.dark) .finance-card,
+body:not(.dark) .flow-card,
+body:not(.dark) .catalog-card,
+body:not(.dark) .recipe-card{color:#111113!important}
+body:not(.dark) .meta,
+body:not(.dark) small,
+body:not(.dark) .lead,
+body:not(.dark) .tiny{color:#6E6E73!important}
+body:not(.dark) .load-card,
+body:not(.dark) .paycycle-card,
+body:not(.dark) .cashflow-card,
+body:not(.dark) .cashflow-hero,
+body:not(.dark) .home-finance-hero,
+body:not(.dark) .financial-hero{color:#fff!important}
+body:not(.dark) .load-card .meta,
+body:not(.dark) .load-card small,
+body:not(.dark) .load-card .tiny,
+body:not(.dark) .paycycle-card .meta,
+body:not(.dark) .paycycle-card small,
+body:not(.dark) .cashflow-card .meta,
+body:not(.dark) .cashflow-card small,
+body:not(.dark) .cashflow-hero .meta,
+body:not(.dark) .cashflow-hero small,
+body:not(.dark) .home-finance-hero .meta,
+body:not(.dark) .home-finance-hero small{color:rgba(255,255,255,.82)!important}
+body:not(.dark) .text-btn[style*="color:#d7b465"]{color:#F2CC77!important}
+body:not(.dark) .recipe .fav-recipe{background:#fff!important;color:#111!important}
+body:not(.dark) .sheet,
+body:not(.dark) .sheet-head{color:#111113!important}
+body:not(.dark) .sheet .meta,
+body:not(.dark) .sheet small{color:#6E6E73!important}
+body:not(.dark) input::placeholder,
+body:not(.dark) textarea::placeholder{color:#8E8E93!important;opacity:1}
+body:not(.dark) select option{color:#111;background:#fff}
+
+html.modal-open,body.modal-open{overflow:hidden!important;overscroll-behavior:none!important;touch-action:none}
+.modal{padding-top:max(12px,env(safe-area-inset-top))!important;overscroll-behavior:contain!important;z-index:1000!important}
+.modal.open{display:flex!important}
+.modal .sheet{position:relative!important;display:flex!important;flex-direction:column!important;overflow:hidden!important;max-height:min(92dvh,920px)!important;min-height:0!important}
+.modal .sheet>*{flex-shrink:0}
+.modal .sheet form,
+.modal .sheet .modal-scroll,
+.modal .sheet>.list,
+.modal .sheet>[id$="List"],
+.modal .sheet>[id$="Content"]{min-height:0}
+.modal .sheet form{overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;padding-bottom:calc(18px + env(safe-area-inset-bottom))!important;overscroll-behavior:contain!important}
+.modal .sheet:not(:has(form)){overflow-y:auto!important;-webkit-overflow-scrolling:touch!important}
+.modal-close-fixed{position:absolute!important;top:12px!important;right:14px!important;z-index:30!important;width:38px!important;height:38px!important;border-radius:50%!important;border:0!important;background:rgba(118,118,128,.16)!important;color:var(--text)!important;font-size:24px!important;line-height:1!important;display:grid!important;place-items:center!important;box-shadow:none!important}
+.modal-close-fixed:active{transform:scale(.94);opacity:.72}
+.modal .sheet>h2:first-of-type{padding-right:50px!important}
+.modal .sheet .section-head:first-of-type{padding-right:48px!important}
+.modal-stuck-reset{position:fixed;right:14px;top:calc(env(safe-area-inset-top) + 12px);z-index:1200;border:0;border-radius:999px;background:rgba(0,0,0,.72);color:#fff;padding:9px 13px;font-weight:700;display:none}
+body.has-modal .modal-stuck-reset{display:block}
+@media(max-width:430px){
+  .modal{padding-top:max(8px,env(safe-area-inset-top))!important}
+  .modal .sheet{max-height:94dvh!important;border-radius:26px 26px 0 0!important}
+  .modal-close-fixed{top:10px!important;right:10px!important}
+}

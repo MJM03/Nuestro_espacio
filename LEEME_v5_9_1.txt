@@ -1,0 +1,8 @@
+Nuestro Espacio v5.9.1
+
+Correcciones:
+- Contraste reforzado en tema claro.
+- Botón de cierre visible en todos los modales.
+- Cierre al tocar fuera, pulsar Escape o deslizar hacia abajo.
+- Scroll interno seguro y desbloqueo del fondo.
+- Botón de emergencia «Cerrar ventana» mientras haya un modal abierto.

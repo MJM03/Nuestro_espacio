@@ -1,7 +1,7 @@
 {
-  "name": "Nuestro Espacio v5.9.0",
+  "name": "Nuestro Espacio v5.9.1",
   "short_name": "Nuestro Espacio",
-  "description": "Organización compartida del hogar con una experiencia inspirada en iOS, Firebase, mercado y despensa inteligente.",
+  "description": "Organización compartida del hogar con diseño iOS, contraste mejorado y modales seguros.",
   "id": "./",
   "start_url": "./index.html",
   "scope": "./",
