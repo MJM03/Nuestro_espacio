@@ -1,0 +1,9 @@
+NUESTRO ESPACIO v5.9.0 — REDISEÑO iOS
+
+1. Sube todos los archivos del ZIP al mismo nivel del repositorio.
+2. Reemplaza los archivos anteriores, incluyendo index.html, sw.js y manifest.webmanifest.
+3. Espera la publicación de GitHub Pages.
+4. Cierra completamente la PWA y vuelve a abrirla.
+5. Si todavía aparece la interfaz anterior, abre la web en Safari, recarga y vuelve a añadirla a la pantalla de inicio.
+
+Esta versión conserva Firebase, la clave local y la estructura de datos anterior.

@@ -1,7 +1,7 @@
 {
-  "name": "Nuestro Espacio v5.8",
+  "name": "Nuestro Espacio v5.9.0",
   "short_name": "Nuestro Espacio",
-  "description": "Organización financiera, mercado y despensa inteligente con doble unidad.",
+  "description": "Organización compartida del hogar con una experiencia inspirada en iOS, Firebase, mercado y despensa inteligente.",
   "id": "./",
   "start_url": "./index.html",
   "scope": "./",
@@ -11,8 +11,8 @@
     "standalone",
     "minimal-ui"
   ],
-  "background_color": "#f4f1ea",
-  "theme_color": "#17211b",
+  "background_color": "#F2F2F7",
+  "theme_color": "#F2F2F7",
   "orientation": "portrait-primary",
   "lang": "es-PE",
   "categories": [

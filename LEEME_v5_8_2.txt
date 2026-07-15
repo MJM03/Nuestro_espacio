@@ -1,0 +1,11 @@
+NUESTRO ESPACIO v5.8.2
+
+Correcciones:
+- Unidades de compra y despensa sugeridas automáticamente por producto.
+- Selectores de unidad en lugar de campos libres.
+- Corrige configuraciones absurdas como 1 kg ≈ 4 kg en productos conocidos.
+- Botón Aplicar sugerencia.
+- Alerta si ambas unidades son iguales y la equivalencia no es 1.
+- Mantiene Firebase y los datos existentes.
+
+Sube todos los archivos reemplazando la versión anterior.
