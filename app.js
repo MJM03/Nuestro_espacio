@@ -2,7 +2,7 @@ import {CATALOG} from './catalog.js';
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js';
 import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,updateProfile,signOut} from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';
 import {initializeFirestore,getFirestore,persistentLocalCache,persistentMultipleTabManager,doc,getDoc,setDoc,writeBatch,onSnapshot,serverTimestamp,increment} from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
-const VERSION='7.0.2';const firebaseConfig={apiKey:'AIzaSyCETXStRJ9xFhf93NwkQTHZIKGiIV230y8',authDomain:'nuestro-espacio-d7132.firebaseapp.com',projectId:'nuestro-espacio-d7132',storageBucket:'nuestro-espacio-d7132.firebasestorage.app',messagingSenderId:'294993809967',appId:'1:294993809967:web:6ef43d122d4947aa2cacda'};
+const VERSION='7.0.3';const firebaseConfig={apiKey:'AIzaSyCETXStRJ9xFhf93NwkQTHZIKGiIV230y8',authDomain:'nuestro-espacio-d7132.firebaseapp.com',projectId:'nuestro-espacio-d7132',storageBucket:'nuestro-espacio-d7132.firebasestorage.app',messagingSenderId:'294993809967',appId:'1:294993809967:web:6ef43d122d4947aa2cacda'};
 const fb=initializeApp(firebaseConfig),auth=getAuth(fb);let db;try{db=initializeFirestore(fb,{localCache:persistentLocalCache({tabManager:persistentMultipleTabManager()})})}catch(error){console.warn('Persistencia avanzada no disponible; usando Firestore estándar.',error);db=getFirestore(fb)}
 const $=id=>document.getElementById(id),num=v=>Number(v)||0,money=v=>'S/ '+num(v).toFixed(2),uid=()=>crypto.randomUUID?.()||Date.now()+'_'+Math.random().toString(36).slice(2),today=()=>new Date().toISOString().slice(0,10),norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 const defaults={shopping:[],tasks:[],expenses:[],notes:[],pantry:[],events:[],fixedExpenses:[],extraIncomes:[],customCatalog:[],favorites:[],priceHistory:[],budget:300,preferredStore:'market',theme:'light',salaryPayments:[{id:'q1',name:'Quincena',amount:500,day:15,active:true},{id:'q2',name:'Fin de mes',amount:900,day:31,active:true}]};
@@ -68,7 +68,67 @@ function moreView(){return `<div class="list"><button class="row-card" data-open
 function bindView(){document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));$('marketSearch')?.addEventListener('input',e=>{marketSearch=e.target.value;render()});$('marketFilters')?.addEventListener('click',e=>{const b=e.target.closest('button');if(b){marketFilter=b.dataset.filter;render()}});$('storeSeg')?.addEventListener('click',e=>{const b=e.target.closest('button');if(b){state.preferredStore=b.dataset.store;persist()}});$('pantrySearch')?.addEventListener('input',e=>{window.__pantryQ=e.target.value;render()});$('pantryFilters')?.addEventListener('click',e=>{const b=e.target.closest('button');if(b){pantryFilter=b.dataset.filter;render()}});document.querySelectorAll('[data-toggle-shop]').forEach(b=>b.onclick=()=>toggleShop(b.dataset.toggleShop));document.querySelectorAll('[data-edit-shop]').forEach(b=>b.onclick=()=>shopForm(b.dataset.editShop));document.querySelectorAll('[data-new-pantry]').forEach(b=>b.onclick=()=>pantryForm());document.querySelectorAll('[data-edit-pantry]').forEach(b=>b.onclick=()=>pantryForm(b.dataset.editPantry));document.querySelectorAll('[data-consume]').forEach(b=>b.onclick=()=>consumeForm(b.dataset.consume));document.querySelectorAll('[data-restock]').forEach(b=>b.onclick=()=>restock(b.dataset.restock));document.querySelectorAll('[data-new-event]').forEach(b=>b.onclick=eventForm);document.querySelectorAll('[data-delete-event]').forEach(b=>b.onclick=()=>{state.events=state.events.filter(x=>x.id!==b.dataset.deleteEvent);persist()});document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>moreAction(b.dataset.open))}
 function openSheet(title,html){$('sheetTitle').textContent=title;$('sheetBody').innerHTML=html;show($('sheet'),true);document.body.style.overflow='hidden'}function closeSheet(){show($('sheet'),false);document.body.style.overflow=''}$('sheetClose').onclick=closeSheet;$('sheet').onclick=e=>{if(e.target===$('sheet'))closeSheet()};
 const units=['kg','g','litro','ml','unidad','unidades','docena','bolsa','paquete','botella','lata','frasco','caja','porciones'];function opts(sel){return units.map(u=>`<option ${u===sel?'selected':''}>${u}</option>`).join('')}
-function shopForm(id=''){const x=state.shopping.find(x=>x.id===id)||{id:'',title:'',qty:1,unit:'unidad',unitPrice:0,category:'Otros'};openSheet(id?'Editar compra':'Nueva compra',`<form class="form" id="sf"><input type="hidden" name="id" value="${x.id}"><label>Producto<input name="title" value="${x.title}" required list="catalogNames"></label><datalist id="catalogNames">${catalog().slice(0,400).map(p=>`<option value="${p.name}">`).join('')}</datalist><div class="two"><label>Cantidad<input name="qty" type="number" step=".01" value="${x.qty}" required></label><label>Unidad<select name="unit">${opts(x.unit)}</select></label></div><label>Precio por unidad<input name="unitPrice" type="number" step=".01" value="${price(x)}"></label><button class="primary">Guardar</button>${id?'<button type="button" class="primary danger" id="delShop">Eliminar</button>':''}</form>`);$('sf').onsubmit=e=>{e.preventDefault();const o=Object.fromEntries(new FormData(e.currentTarget));o.qty=num(o.qty);o.unitPrice=num(o.unitPrice);const p=catalog().find(p=>norm(p.name)===norm(o.title));o.productId=p?.id||x.productId||'';o.done=x.done||false;if(id)Object.assign(x,o);else{ o.id=uid();state.shopping.unshift(o)}closeSheet();persist()};$('delShop')?.addEventListener('click',()=>{state.shopping=state.shopping.filter(v=>v.id!==id);closeSheet();persist()})}
+function shopForm(id=''){
+  const x=state.shopping.find(x=>x.id===id)||{id:'',title:'',qty:1,unit:'unidad',unitPrice:0,category:'Otros',productId:''};
+  const initial=catalog().find(p=>p.id===x.productId)||catalog().find(p=>norm(p.name)===norm(x.title));
+  const suggested=initial?num(initial[state.preferredStore]):num(x.unitPrice);
+  openSheet(id?'Editar compra':'Nueva compra',`<form class="form" id="sf">
+    <input type="hidden" name="id" value="${x.id}">
+    <input type="hidden" name="productId" id="sfProductId" value="${x.productId||initial?.id||''}">
+    <label>Producto
+      <input name="title" id="sfTitle" value="${x.title}" required autocomplete="off" placeholder="Ej. tomate, arroz, leche">
+    </label>
+    <div id="catalogSuggest" class="catalog-suggest" hidden></div>
+    <div id="pricePreview" class="price-preview"></div>
+    <div class="two">
+      <label>Cantidad<input name="qty" id="sfQty" type="number" step=".01" min="0.01" value="${x.qty}" required></label>
+      <label>Unidad<select name="unit" id="sfUnit">${opts(x.unit||initial?.unit||'unidad')}</select></label>
+    </div>
+    <label>Precio por unidad
+      <div class="money-input"><span>S/</span><input name="unitPrice" id="sfUnitPrice" type="number" min="0" step=".01" value="${(num(x.unitPrice)||suggested||0).toFixed(2)}"></div>
+      <small class="muted">Puedes editarlo si el precio real es distinto.</small>
+    </label>
+    <div class="form-total" id="sfTotal"></div>
+    <button class="primary">Guardar</button>
+    ${id?'<button type="button" class="primary danger" id="delShop">Eliminar</button>':''}
+  </form>`);
+
+  const title=$('sfTitle'), unit=$('sfUnit'), unitPrice=$('sfUnitPrice'), productId=$('sfProductId'), suggest=$('catalogSuggest'), preview=$('pricePreview'), qty=$('sfQty'), total=$('sfTotal');
+  let selected=initial||null;
+
+  function storeLabel(k){return k==='market'?'Mercado':k==='supermarket'?'Supermercado':'Mayorista'}
+  function renderPreview(p){
+    if(!p){preview.innerHTML='<div class="catalog-empty">Producto sin precio del catálogo. Ingresa el precio manualmente.</div>';return}
+    preview.innerHTML=`<div class="price-preview-head"><div><b>${p.name}</b><small>${p.category||'Producto'} · por ${p.unit||'unidad'}</small></div><span class="price-badge">${storeLabel(state.preferredStore)}</span></div><div class="price-grid"><button type="button" data-pick-price="market"><small>Mercado</small><b>${money(p.market)}</b></button><button type="button" data-pick-price="supermarket"><small>Supermercado</small><b>${money(p.supermarket)}</b></button><button type="button" data-pick-price="wholesale"><small>Mayorista</small><b>${money(p.wholesale)}</b></button></div>`;
+    preview.querySelectorAll('[data-pick-price]').forEach(b=>b.onclick=()=>{const k=b.dataset.pickPrice;unitPrice.value=num(p[k]).toFixed(2);updateTotal();preview.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b))});
+    const active=preview.querySelector(`[data-pick-price="${state.preferredStore}"]`);if(active)active.classList.add('active');
+  }
+  function choose(p){selected=p;title.value=p.name;productId.value=p.id;unit.value=p.unit||'unidad';unitPrice.value=num(p[state.preferredStore]).toFixed(2);suggest.hidden=true;renderPreview(p);updateTotal()}
+  function showSuggestions(){
+    const q=norm(title.value);if(!q){suggest.hidden=true;return}
+    const matches=catalog().filter(p=>norm(p.name).includes(q)).slice(0,8);
+    if(!matches.length){suggest.hidden=true;return}
+    suggest.innerHTML=matches.map(p=>`<button type="button" data-catalog-id="${p.id}"><span><b>${p.name}</b><small>${p.category||''} · ${p.unit||'unidad'}</small></span><strong>${money(p[state.preferredStore])}</strong></button>`).join('');
+    suggest.hidden=false;suggest.querySelectorAll('[data-catalog-id]').forEach(b=>b.onclick=()=>choose(catalog().find(p=>p.id===b.dataset.catalogId)));
+  }
+  function detectExact(){const p=catalog().find(p=>norm(p.name)===norm(title.value));if(p){choose(p)}else{selected=null;productId.value='';renderPreview(null);updateTotal()}}
+  function updateTotal(){total.innerHTML=`<span>Subtotal estimado</span><strong>${money(num(qty.value)*num(unitPrice.value))}</strong>`}
+
+  title.addEventListener('input',()=>{selected=null;productId.value='';showSuggestions()});
+  title.addEventListener('change',detectExact);
+  title.addEventListener('blur',()=>setTimeout(()=>{suggest.hidden=true;detectExact()},180));
+  qty.addEventListener('input',updateTotal);unitPrice.addEventListener('input',updateTotal);
+  renderPreview(initial||null);updateTotal();
+
+  $('sf').onsubmit=e=>{
+    e.preventDefault();const o=Object.fromEntries(new FormData(e.currentTarget));o.qty=num(o.qty);o.unitPrice=num(o.unitPrice);
+    const p=catalog().find(p=>p.id===o.productId)||catalog().find(p=>norm(p.name)===norm(o.title));
+    if(p){o.productId=p.id;o.title=p.name;o.unit=o.unit||p.unit;o.category=p.category||x.category||'Otros';if(!o.unitPrice)o.unitPrice=num(p[state.preferredStore])}
+    else{o.productId=x.productId||'';o.category=x.category||'Otros'}
+    o.done=x.done||false;if(id)Object.assign(x,o);else{o.id=uid();state.shopping.unshift(o)}closeSheet();persist()
+  };
+  $('delShop')?.addEventListener('click',()=>{state.shopping=state.shopping.filter(v=>v.id!==id);closeSheet();persist()})
+}
 function toggleShop(id){const x=state.shopping.find(x=>x.id===id);if(!x)return;if(!x.done)return completePurchase(x);rollbackPurchase(x);persist()}
 function completePurchase(x){openSheet('Confirmar compra',`<form class="form" id="complete"><p>${x.title} · ${x.qty} ${x.unit}</p><label>Total pagado<input name="amount" type="number" step=".01" value="${(x.qty*price(x)).toFixed(2)}"></label><label>Cantidad a despensa<input name="pantryQty" type="number" step=".01" value="${x.qty}"></label><label>Unidad de despensa<select name="pantryUnit">${opts(x.pantryUnit||x.unit)}</select></label><button class="primary">Guardar compra</button></form>`);$('complete').onsubmit=e=>{e.preventDefault();const o=Object.fromEntries(new FormData(e.currentTarget)),eid=uid();x.done=true;x.actualTotal=num(o.amount);x.purchaseDate=today();x.linkedExpenseId=eid;x.pantryAddQty=num(o.pantryQty);x.pantryUnit=o.pantryUnit;state.expenses.unshift({id:eid,sourcePurchaseId:x.id,title:'Mercado: '+x.title,amount:x.actualTotal,date:today(),category:'Mercado'});let p=state.pantry.find(p=>norm(p.name)===norm(x.title));if(!p){p={id:uid(),name:x.title,qty:0,minQty:0,unit:x.pantryUnit,pantryUnit:x.pantryUnit,purchaseUnit:x.unit,conversionRate:x.qty?x.pantryAddQty/x.qty:1};state.pantry.unshift(p)}p.qty=num(p.qty)+x.pantryAddQty;x.pantryMovement={itemId:p.id,qty:x.pantryAddQty};closeSheet();persist()}}
 function rollbackPurchase(x){x.done=false;if(x.linkedExpenseId)state.expenses=state.expenses.filter(e=>e.id!==x.linkedExpenseId);if(x.pantryMovement){const p=state.pantry.find(p=>p.id===x.pantryMovement.itemId);if(p)p.qty=Math.max(0,num(p.qty)-num(x.pantryMovement.qty))}delete x.linkedExpenseId;delete x.pantryMovement}
