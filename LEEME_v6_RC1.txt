@@ -1,0 +1,14 @@
+NUESTRO ESPACIO v6.0.0 — RELEASE CANDIDATE 1
+
+Versión enfocada en estabilidad visual y experiencia iPhone.
+
+Correcciones principales:
+- Tarjeta de carga estimada visible en tema claro.
+- Contraste auditado en Mercado, Despensa, Agenda, Recetas y Más.
+- Espaciado y safe areas corregidos.
+- Botón flotante y navegación no tapan contenido.
+- Recuperación visual si una sección falla al renderizar.
+- Modales reforzados y compatibles con teclado móvil.
+- Versión unificada en v6.0.0.
+
+Para actualizar: reemplaza todos los archivos en GitHub Pages, espera el despliegue, cierra la PWA y vuelve a abrirla desde Safari.

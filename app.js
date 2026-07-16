@@ -118,7 +118,7 @@ renderUltraHome();persistUltra();
 
 initCatalogChips();renderAll();applyTheme();
 
-const APP_VERSION='5.9.2';
+const APP_VERSION='6.0.0';
 const APP_BUILD='16/07/2026 17:45 (Lima)';
 function compareVersions(a,b){const pa=String(a).split('.').map(Number),pb=String(b).split('.').map(Number);for(let i=0;i<Math.max(pa.length,pb.length);i++){const x=pa[i]||0,y=pb[i]||0;if(x>y)return 1;if(x<y)return -1}return 0}
 function setVersionStatus(text,type=''){const el=document.getElementById('versionStatus');if(!el)return;el.textContent=text;el.className='version-status'+(type?' '+type:'')}
@@ -240,12 +240,12 @@ addRecipe=function(id){const r=PERU_RECIPES.find(x=>x.id===id);if(!r)return;let 
 const __migrateV4=migrate;migrate=function(d){const out=__migrateV4(d);out.recipeFavorites=Array.isArray(d.recipeFavorites)?d.recipeFavorites:[];return out}
 initRecipeFilters();renderRecipes();
 
-/* v5.9.2: La implementación canónica está incluida en index.html para mantener compatibilidad con la PWA histórica. */
+/* v6.0.0: La implementación canónica está incluida en index.html para mantener compatibilidad con la PWA histórica. */
 
 
-/* v5.9.2 — Flujo quincenal */
+/* v6.0.0 — Flujo quincenal */
 (()=>{
-  const VERSION='5.9.2';
+  const VERSION='6.0.0';
   const monthKey=(date=new Date())=>`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}`;
   const lastDay=(date=new Date())=>new Date(date.getFullYear(),date.getMonth()+1,0).getDate();
   const num=v=>Number(v||0);

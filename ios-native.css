@@ -1,4 +1,4 @@
-/* Nuestro Espacio v5.9.0 — iOS Native Design System */
+/* Nuestro Espacio v6.0.0 RC1 — iOS Native Design System */
 :root{
   --ios-blue:#0A84FF;--ios-green:#30D158;--ios-red:#FF453A;--ios-orange:#FF9F0A;--ios-yellow:#FFD60A;
   --ios-purple:#BF5AF2;--ios-teal:#64D2FF;--ios-indigo:#5E5CE6;
@@ -83,7 +83,7 @@ input[type="checkbox"]:checked{background:var(--ios-green)!important;border-colo
 @media(min-width:720px){main,.main-content{max-width:680px!important;margin:auto!important}.header{max-width:720px!important;margin:auto!important}.bottom-nav,.nav{max-width:660px!important;margin:auto!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important}}
 @media(max-width:430px){.header{padding-left:14px!important;padding-right:14px!important}.brand h1{font-size:23px!important}.logo{width:44px!important;height:44px!important}.home-grid{gap:10px!important}.card{padding:14px!important}.sheet{padding-left:14px!important;padding-right:14px!important}.row{grid-template-columns:1fr!important}.fab{right:16px!important}}
 
-/* v5.9.2 — Light theme contrast + resilient modal system */
+/* v6.0.0 RC1 — Light theme contrast + resilient modal system */
 body:not(.dark){
   --glass:rgba(255,255,255,.86);
 }
@@ -151,5 +151,83 @@ body.has-modal .modal-stuck-reset{display:block}
   .modal-close-fixed{top:10px!important;right:10px!important}
 }
 
-/* v5.9.2 — Consumo de despensa con unidades */
+/* v6.0.0 RC1 — Consumo de despensa con unidades */
 .consume-sheet{padding-bottom:max(24px,env(safe-area-inset-bottom))}.consume-product-card{display:flex;align-items:center;gap:12px;padding:14px;margin:4px 0 16px;border-radius:18px;background:var(--ios-fill-secondary,var(--soft));border:1px solid var(--ios-separator,var(--border))}.consume-product-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:15px;background:var(--ios-bg-elevated,var(--card));font-size:25px}.consume-product-card b{display:block;font-size:17px}.consume-product-card small{display:block;color:var(--muted);margin-top:3px}.consume-amount-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(130px,.7fr);gap:10px}.consume-amount-row input,.consume-amount-row select{min-height:54px;font-size:18px}.field-help{display:block;color:var(--muted);margin-top:7px;line-height:1.35}.consume-quick{display:flex;gap:8px;overflow:auto;padding:2px 0 10px;scrollbar-width:none}.consume-quick::-webkit-scrollbar{display:none}.consume-quick button{flex:none;border:0;border-radius:999px;padding:9px 13px;background:var(--ios-fill-secondary,var(--soft));color:var(--ios-blue,var(--primary));font-weight:750}.consume-preview{padding:13px 14px;margin:2px 0 14px;border-radius:16px;background:color-mix(in srgb,var(--ios-blue,var(--primary)) 9%,transparent);color:var(--text);line-height:1.45}.consume-preview b{color:var(--ios-blue,var(--primary))}.consume-preview span{display:block;color:var(--muted);margin-top:3px}@media(max-width:380px){.consume-amount-row{grid-template-columns:1fr}.consume-amount-row select{font-size:16px}}
+
+
+/* === v6.0.0 RC1 · Full visual stabilization === */
+:root{--bottom-ui:calc(96px + env(safe-area-inset-bottom));--keyboard-offset:0px}
+body{padding-bottom:var(--bottom-ui)!important;overflow-x:hidden}
+.view{padding-bottom:calc(34px + var(--bottom-ui))!important}
+
+/* Critical fix: colored cards were being reset to white by the generic .card rule. */
+.load-card{
+  display:block!important;
+  background:linear-gradient(145deg,#086A8A,#1497A4)!important;
+  color:#fff!important;
+  border:0!important;
+  min-height:0!important;
+  margin:20px 0 22px!important;
+  padding:18px!important;
+  box-shadow:0 14px 34px rgba(8,106,138,.23)!important;
+}
+.load-card strong,.load-card b,.load-card span{color:#fff!important}
+.load-card small,.load-card .tiny{color:rgba(255,255,255,.82)!important}
+.load-card .load-stat{background:rgba(255,255,255,.14)!important;border:1px solid rgba(255,255,255,.10)!important}
+.load-card.has-warning{background:linear-gradient(145deg,#8A5C08,#B67B16)!important}
+.income-summary,.fixed-summary{color:#fff!important;border:0!important}
+.income-summary{background:linear-gradient(145deg,#25346F,#5B4FE9)!important}
+.fixed-summary{background:linear-gradient(145deg,#245947,#327860)!important}
+
+/* Mercado spacing and mobile hierarchy */
+#marketView>.budget{margin-bottom:18px!important}
+#marketView>.store-tabs{margin-top:4px!important;margin-bottom:16px!important}
+#marketView>.search{margin-bottom:14px!important}
+#marketView>#shopFilters{margin-bottom:14px!important}
+#shoppingList{margin-bottom:42px!important}
+.store-tabs{gap:8px!important}.store-tab{min-height:46px!important;font-size:14px!important;font-weight:650!important;border-radius:14px!important}
+.store-tab.active{background:rgba(10,132,255,.10)!important;color:var(--ios-blue)!important;border-color:var(--ios-blue)!important}
+.search input{min-height:52px!important;padding-left:45px!important}
+
+/* Bottom UI can never cover interactive content */
+.nav{bottom:calc(8px + env(safe-area-inset-bottom) + var(--keyboard-offset))!important;transition:transform .18s ease,opacity .18s ease,bottom .18s ease!important}
+.fab{bottom:calc(88px + env(safe-area-inset-bottom) + var(--keyboard-offset))!important;transition:transform .18s ease,opacity .18s ease,bottom .18s ease!important}
+body.keyboard-open .nav,body.keyboard-open .fab{opacity:0!important;pointer-events:none!important;transform:translateY(18px)!important}
+
+/* Stable lists: no accidental huge blank cards */
+.list:empty,.pantry-page-list:empty,.recipe-grid:empty{display:none!important}
+.card:empty{display:none!important}
+#loadSummary:empty{display:none!important}
+.section-recovery{display:flex;flex-direction:column;align-items:center;text-align:center;gap:7px;padding:24px 18px;border:1px dashed var(--border);border-radius:20px;background:var(--card);color:var(--text);box-shadow:var(--shadow-soft)}
+.section-recovery-icon{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(10,132,255,.11);color:var(--ios-blue);font-size:22px;font-weight:800}
+.section-recovery span{color:var(--muted);font-size:13px;line-height:1.4;max-width:310px}
+.section-recovery button{margin-top:5px;border:0;border-radius:12px;padding:10px 16px;background:var(--ios-blue);color:#fff;font-weight:750}
+
+/* Light mode audit */
+body:not(.dark) .budget,body:not(.dark) .range div,body:not(.dark) .search input,body:not(.dark) .store-tab,body:not(.dark) .filter,body:not(.dark) .chip{color:#111113!important}
+body:not(.dark) .budget small,body:not(.dark) .budget-line span,body:not(.dark) .range small{color:#636366!important}
+body:not(.dark) .empty{background:#fff!important;color:#636366!important;border-color:rgba(60,60,67,.18)!important}
+body:not(.dark) .danger{color:#D70015!important}
+body:not(.dark) .pantry-card .meta,body:not(.dark) .item .meta{color:#636366!important}
+
+/* Modal and sheet hardening */
+.modal{overscroll-behavior:none!important}
+.modal .sheet{padding-top:14px!important;padding-bottom:calc(22px + env(safe-area-inset-bottom))!important;box-shadow:0 -18px 60px rgba(0,0,0,.20)!important}
+.modal .sheet form{scroll-padding-bottom:100px!important}
+.modal-close-fixed,.sheet-head .close{position:sticky!important;top:0!important;margin-left:auto!important;z-index:50!important;background:rgba(118,118,128,.18)!important;backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important}
+.sheet-head{position:sticky!important;top:-14px!important;z-index:20!important;background:linear-gradient(180deg,var(--card-solid) 78%,transparent)!important;padding:10px 0 12px!important;margin-top:-10px!important}
+
+/* Accessibility and touch targets */
+button,.filter,.chip,.store-tab{min-width:44px}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid rgba(10,132,255,.35)!important;outline-offset:2px!important}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+
+@media(max-width:430px){
+  .view{padding-left:12px!important;padding-right:12px!important}
+  .budget{padding:17px!important}
+  .budget-top strong{font-size:27px!important}
+  .range{gap:7px!important}.range div{padding:11px 5px!important}.range b{font-size:15px!important}
+  .load-card{margin-top:18px!important}
+  .load-grid{gap:9px!important}
+  .filters{max-width:100%!important}
+}
