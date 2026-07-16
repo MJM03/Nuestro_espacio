@@ -1,2 +1,2 @@
-Nuestro Espacio v7.0.1
+Nuestro Espacio v7.0.2
 Corrección de inicio Firebase/Safari. Sube todos los archivos al mismo nivel en GitHub Pages.
