@@ -1,3 +1,2 @@
-Nuestro Espacio v7.0.0
-
-Sube todos los archivos al mismo nivel en GitHub Pages. Mantiene Firebase y el documento households/{id}/appState/main.
+Nuestro Espacio v7.0.1
+Corrección de inicio Firebase/Safari. Sube todos los archivos al mismo nivel en GitHub Pages.

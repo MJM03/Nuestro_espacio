@@ -1,9 +1,9 @@
 import {CATALOG} from './catalog.js';
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js';
 import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,updateProfile,signOut} from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';
-import {initializeFirestore,persistentLocalCache,persistentMultipleTabManager,doc,getDoc,setDoc,writeBatch,onSnapshot,serverTimestamp,increment} from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
-const VERSION='7.0.0';const firebaseConfig={apiKey:'AIzaSyCETXStRJ9xFhf93NwkQTHZIKGiIV230y8',authDomain:'nuestro-espacio-d7132.firebaseapp.com',projectId:'nuestro-espacio-d7132',storageBucket:'nuestro-espacio-d7132.firebasestorage.app',messagingSenderId:'294993809967',appId:'1:294993809967:web:6ef43d122d4947aa2cacda'};
-const fb=initializeApp(firebaseConfig),auth=getAuth(fb);let db;try{db=initializeFirestore(fb,{localCache:persistentLocalCache({tabManager:persistentMultipleTabManager()})})}catch{db=initializeFirestore(fb,{})}
+import {initializeFirestore,getFirestore,persistentLocalCache,persistentMultipleTabManager,doc,getDoc,setDoc,writeBatch,onSnapshot,serverTimestamp,increment} from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
+const VERSION='7.0.1';const firebaseConfig={apiKey:'AIzaSyCETXStRJ9xFhf93NwkQTHZIKGiIV230y8',authDomain:'nuestro-espacio-d7132.firebaseapp.com',projectId:'nuestro-espacio-d7132',storageBucket:'nuestro-espacio-d7132.firebasestorage.app',messagingSenderId:'294993809967',appId:'1:294993809967:web:6ef43d122d4947aa2cacda'};
+const fb=initializeApp(firebaseConfig),auth=getAuth(fb);let db;try{db=initializeFirestore(fb,{localCache:persistentLocalCache({tabManager:persistentMultipleTabManager()})})}catch(error){console.warn('Persistencia avanzada no disponible; usando Firestore estándar.',error);db=getFirestore(fb)}
 const $=id=>document.getElementById(id),num=v=>Number(v)||0,money=v=>'S/ '+num(v).toFixed(2),uid=()=>crypto.randomUUID?.()||Date.now()+'_'+Math.random().toString(36).slice(2),today=()=>new Date().toISOString().slice(0,10),norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 const defaults={shopping:[],tasks:[],expenses:[],notes:[],pantry:[],events:[],fixedExpenses:[],extraIncomes:[],customCatalog:[],favorites:[],priceHistory:[],budget:300,preferredStore:'market',theme:'light',salaryPayments:[{id:'q1',name:'Quincena',amount:500,day:15,active:true},{id:'q2',name:'Fin de mes',amount:900,day:31,active:true}]};
 let state=structuredClone(defaults),user=null,householdId='',inviteCode='',unsub=null,saveTimer=null,remote=false,currentView='home',marketFilter='pending',pantryFilter='all',marketSearch='';
@@ -16,9 +16,40 @@ function toast(t){const e=$('toast');e.textContent=t;e.classList.add('show');cle
 function show(el,on=true){el.hidden=!on}function setLoading(t){$('loadingText').textContent=t;show($('loading'),true);show($('auth'),false);show($('setup'),false);show($('app'),false)}
 function openApp(){show($('loading'),false);show($('auth'),false);show($('setup'),false);show($('app'),true);applyTheme();render()}
 function stateEmpty(s){return !s.shopping.length&&!s.tasks.length&&!s.expenses.length&&!s.pantry.length&&!s.notes.length}
-async function connect(profile){householdId=profile.householdId;inviteCode=profile.inviteCode||'';setLoading('Cargando datos compartidos…');if(unsub)unsub();let first=true;unsub=onSnapshot(stateRef(),{includeMetadataChanges:true},async snap=>{try{if(snap.exists()&&snap.data().state){remote=true;state=migrate(snap.data().state);remote=false;localStorage.setItem('nuestroEspacioPro',JSON.stringify(state));openApp()}else if(first){const local=localLoad();state=local;if(!stateEmpty(local))await push();else await setDoc(stateRef(),{state,version:VERSION,updatedAt:serverTimestamp()});openApp()}first=false;sync(snap.metadata.hasPendingWrites?'saving':'ok')}catch(e){console.error(e);openApp();toast('Se recuperó la interfaz; tus datos siguen seguros')}})}
-async function authenticated(u){user=u;setLoading('Buscando tu hogar…');const p=await getDoc(doc(db,'users',u.uid));if(p.exists()&&p.data().householdId)return connect(p.data());show($('loading'),false);show($('setup'),true);show($('auth'),false)}
-onAuthStateChanged(auth,u=>u?authenticated(u):(show($('loading'),false),show($('auth'),true),show($('setup'),false),show($('app'),false)));
+async function connect(profile){
+  householdId=profile.householdId;inviteCode=profile.inviteCode||'';setLoading('Cargando datos compartidos…');if(unsub)unsub();let first=true,opened=false;
+  const rescue=setTimeout(()=>{if(!opened){state=localLoad();openApp();sync('error');toast('La nube está tardando. Mostramos tu copia local.')}},12000);
+  unsub=onSnapshot(stateRef(),{includeMetadataChanges:true},async snap=>{
+    try{
+      if(snap.exists()&&snap.data().state){remote=true;state=migrate(snap.data().state);remote=false;localStorage.setItem('nuestroEspacioPro',JSON.stringify(state));}
+      else if(first){const local=localLoad();state=local;if(!stateEmpty(local))await push();else await setDoc(stateRef(),{state,version:VERSION,updatedAt:serverTimestamp()});}
+      first=false;opened=true;clearTimeout(rescue);openApp();sync(snap.metadata.hasPendingWrites?'saving':'ok');
+    }catch(e){console.error('Error procesando datos del hogar',e);opened=true;clearTimeout(rescue);state=localLoad();openApp();sync('error');toast('Abrimos tu copia local; tus datos siguen seguros')}
+  },error=>{
+    console.error('Error escuchando Firestore',error);opened=true;clearTimeout(rescue);state=localLoad();openApp();sync('error');toast('Sin conexión a Firebase. Usando datos locales.')
+  });
+}
+async function authenticated(u){
+  user=u;setLoading('Buscando tu hogar…');
+  try{
+    const p=await Promise.race([
+      getDoc(doc(db,'users',u.uid)),
+      new Promise((_,reject)=>setTimeout(()=>reject(new Error('Tiempo de espera agotado al consultar el perfil')),12000))
+    ]);
+    if(p.exists()&&p.data().householdId)return connect(p.data());
+    show($('loading'),false);show($('setup'),true);show($('auth'),false);
+  }catch(error){
+    console.error('No se pudo cargar el perfil Firebase',error);
+    state=localLoad();openApp();sync('error');
+    toast('Firebase tardó demasiado. Abrimos tu copia local.');
+  }
+}
+onAuthStateChanged(auth,u=>{
+  if(u) authenticated(u).catch(error=>{console.error(error);state=localLoad();openApp();sync('error')});
+  else {show($('loading'),false);show($('auth'),true);show($('setup'),false);show($('app'),false)}
+},error=>{
+  console.error('Error de Authentication',error);show($('loading'),false);show($('auth'),true);$('authError').textContent='No se pudo conectar con Firebase. Revisa internet y vuelve a intentar.';
+});
 $('loginForm').onsubmit=async e=>{e.preventDefault();try{const f=new FormData(e.currentTarget);await signInWithEmailAndPassword(auth,f.get('email'),f.get('password'))}catch(err){$('authError').textContent=err.message}};$('showRegister').onclick=()=>{show($('loginForm'),false);show($('showRegister'),false);show($('registerForm'),true)};$('backLogin').onclick=()=>{show($('loginForm'),true);show($('showRegister'),true);show($('registerForm'),false)};$('registerForm').onsubmit=async e=>{e.preventDefault();try{const f=new FormData(e.currentTarget),r=await createUserWithEmailAndPassword(auth,f.get('email'),f.get('password'));await updateProfile(r.user,{displayName:f.get('name')})}catch(err){$('authError').textContent=err.message}};
 $('createHome').onsubmit=async e=>{e.preventDefault();const name=new FormData(e.currentTarget).get('name'),hid=uid(),code=Math.random().toString(36).slice(2,8).toUpperCase(),b=writeBatch(db);b.set(doc(db,'households',hid),{name,createdBy:user.uid,createdAt:serverTimestamp(),inviteCode:code});b.set(doc(db,'households',hid,'members',user.uid),{name:user.displayName||user.email,email:user.email,role:'owner'});b.set(doc(db,'invites',code),{householdId:hid,status:'active',createdBy:user.uid,uses:0});b.set(doc(db,'users',user.uid),{name:user.displayName||user.email,email:user.email,householdId:hid,inviteCode:code},{merge:true});await b.commit();connect({householdId:hid,inviteCode:code})};
 $('joinHome').onsubmit=async e=>{e.preventDefault();const code=String(new FormData(e.currentTarget).get('code')).toUpperCase(),i=await getDoc(doc(db,'invites',code));if(!i.exists())return toast('Código no válido');const d=i.data(),b=writeBatch(db);b.set(doc(db,'households',d.householdId,'members',user.uid),{name:user.displayName||user.email,email:user.email,role:'member'});b.set(doc(db,'users',user.uid),{name:user.displayName||user.email,email:user.email,householdId:d.householdId,inviteCode:code},{merge:true});b.update(doc(db,'invites',code),{uses:increment(1)});await b.commit();connect({householdId:d.householdId,inviteCode:code})};
@@ -47,4 +78,7 @@ function restock(id){const x=state.pantry.find(x=>x.id===id),need=Math.max(0,num
 function eventForm(){openSheet('Nuevo evento',`<form class="form" id="ef"><label>Título<input name="title" required></label><div class="two"><label>Fecha<input name="date" type="date" value="${today()}"></label><label>Hora<input name="time" type="time"></label></div><button class="primary">Guardar</button></form>`);$('ef').onsubmit=e=>{e.preventDefault();state.events.unshift({id:uid(),...Object.fromEntries(new FormData(e.currentTarget))});closeSheet();persist()}}
 function moreAction(a){if(a==='backup'){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),u=URL.createObjectURL(blob),l=document.createElement('a');l.href=u;l.download='nuestro-espacio-v7.json';l.click();URL.revokeObjectURL(u);return}if(a==='account'){openSheet('Cuenta y sincronización',`<div class="list"><div class="card"><small>USUARIO</small><h3>${user?.displayName||user?.email}</h3></div><div class="card"><small>CÓDIGO DEL HOGAR</small><h2>${inviteCode||'—'}</h2><button class="primary" id="copyCode">Copiar código</button></div><button class="primary danger" id="logout">Cerrar sesión</button></div>`);$('copyCode').onclick=()=>navigator.clipboard.writeText(inviteCode).then(()=>toast('Código copiado'));$('logout').onclick=()=>signOut(auth).then(closeSheet);return}if(a==='finance'){openSheet('Finanzas',`<div class="grid"><div class="card metric"><small>Ingresos</small><b>${money(incomeTotal())}</b></div><div class="card metric"><small>Fijos</small><b>${money(fixedTotal())}</b></div><div class="card metric"><small>Mercado</small><b>${money(pendingMarket())}</b></div><div class="card metric"><small>Gastos</small><b>${money(monthExpenses())}</b></div></div>`);return}if(a==='tasks'){openSheet('Tareas',`<form class="form" id="tf"><label>Nueva tarea<input name="title" required></label><button class="primary">Agregar</button></form><div class="list" id="taskList">${state.tasks.map(t=>`<div class="row-card"><button class="check ${t.done?'done':''}" data-task="${t.id}">${t.done?'✓':''}</button><div class="main"><h3>${t.title}</h3></div></div>`).join('')}</div>`);$('tf').onsubmit=e=>{e.preventDefault();state.tasks.unshift({id:uid(),title:new FormData(e.currentTarget).get('title'),done:false});closeSheet();persist()};document.querySelectorAll('[data-task]').forEach(b=>b.onclick=()=>{const t=state.tasks.find(t=>t.id===b.dataset.task);t.done=!t.done;closeSheet();persist()})}}
 $('fab').onclick=()=>currentView==='market'?shopForm():currentView==='pantry'?pantryForm():currentView==='agenda'?eventForm():moreAction('tasks');$('themeBtn').onclick=()=>{state.theme=state.theme==='dark'?'light':'dark';applyTheme();persist()};function applyTheme(){document.body.classList.toggle('dark',state.theme==='dark')}$('syncBtn').onclick=push;
+window.addEventListener('error',event=>{console.error('Error global',event.error||event.message);if(!$('loading').hidden){state=localLoad();openApp();sync('error');toast('Se recuperó el inicio de la app.')}});
+window.addEventListener('unhandledrejection',event=>{console.error('Promesa no controlada',event.reason);if(!$('loading').hidden){state=localLoad();openApp();sync('error');toast('Se recuperó el inicio de la app.')}});
+setTimeout(()=>{if(!$('loading').hidden){state=localLoad();openApp();sync('error');toast('Inicio recuperado con la copia local.')}},15000);
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');
