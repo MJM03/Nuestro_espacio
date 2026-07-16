@@ -1,16 +1,3 @@
-NUESTRO ESPACIO v5.3.0
+Nuestro Espacio v7.0.0
 
-Sube todos los archivos de esta carpeta a la raíz de tu repositorio de GitHub Pages.
-
-NOVEDADES
-- Sueldo dividido en pagos configurables.
-- Valores iniciales: S/500 el día 15 y S/900 al fin de mes.
-- Estado por pago: automático, esperado, recibido o retrasado.
-- Asignación de gastos fijos, compras y gastos variables por quincena.
-- Opción para dividir compromisos entre ambas quincenas.
-- Vista de saldo seguro hasta la próxima paga.
-- Alertas de quincena insuficiente y sugerencias de redistribución.
-- Ingresos extra asociados automáticamente a la quincena de su fecha.
-- Firebase y datos anteriores compatibles.
-
-Después de publicar, cierra completamente la PWA y vuelve a abrirla para cargar la nueva caché.
+Sube todos los archivos al mismo nivel en GitHub Pages. Mantiene Firebase y el documento households/{id}/appState/main.

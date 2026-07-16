@@ -1,37 +1,20 @@
 {
-  "name": "Nuestro Espacio v6.0.0",
+  "name": "Nuestro Espacio",
   "short_name": "Nuestro Espacio",
-  "description": "Release Candidate estable para la organización compartida del hogar, mercado, finanzas y despensa.",
-  "id": "./",
-  "start_url": "./index.html",
-  "scope": "./",
+  "start_url": "./",
   "display": "standalone",
-  "display_override": [
-    "window-controls-overlay",
-    "standalone",
-    "minimal-ui"
-  ],
-  "background_color": "#F2F2F7",
-  "theme_color": "#F2F2F7",
-  "orientation": "portrait-primary",
-  "lang": "es-PE",
-  "categories": [
-    "finance",
-    "productivity",
-    "lifestyle"
-  ],
+  "background_color": "#f5f5f7",
+  "theme_color": "#f5f5f7",
   "icons": [
     {
       "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     },
     {
       "src": "icon-maskable-512.png",
@@ -39,30 +22,5 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ],
-  "shortcuts": [
-    {
-      "name": "Agregar compra",
-      "short_name": "Compra",
-      "url": "./index.html#market",
-      "icons": [
-        {
-          "src": "icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "Ver tareas",
-      "short_name": "Tareas",
-      "url": "./index.html#tasks",
-      "icons": [
-        {
-          "src": "icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    }
-  ],
-  "version": "6.0.0"
+  ]
 }
