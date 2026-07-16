@@ -1,0 +1,3 @@
+Nuestro Espacio v5.9.2
+
+El consumo de despensa ahora muestra la unidad y permite conversiones compatibles: kg/g, litros/ml y unidades/docenas.

@@ -1,5 +1,5 @@
 {
-  "name": "Nuestro Espacio v5.9.1",
+  "name": "Nuestro Espacio v5.9.2",
   "short_name": "Nuestro Espacio",
   "description": "Organización compartida del hogar con diseño iOS, contraste mejorado y modales seguros.",
   "id": "./",
@@ -63,5 +63,6 @@
         }
       ]
     }
-  ]
+  ],
+  "version": "5.9.2"
 }
