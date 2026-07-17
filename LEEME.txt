@@ -1,4 +1,4 @@
-Nuestro Espacio v7.2.1 Stable
+Nuestro Espacio v7.2.2 Stable
 
 Esta versión funciona normalmente sin configurar VAPID ni Cloud Messaging.
 
@@ -18,3 +18,6 @@ INSTALACIÓN:
 2. Espera la publicación de GitHub Pages.
 3. Abre la URL en Safari y recarga.
 4. Para avisos de iOS, abre la PWA desde el icono instalado.
+
+
+Restaurado: gestión completa de ingresos programados, ingresos extra, gastos fijos y gastos registrados.
