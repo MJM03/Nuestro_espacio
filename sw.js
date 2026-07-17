@@ -1,4 +1,4 @@
-const CACHE='nuestro-espacio-v7-2-2-finance-fix';
+const CACHE='nuestro-espacio-v7-2-3-share-list';
 const ASSETS=['./','./index.html','./styles.css','./app.js','./catalog.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-maskable-512.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));

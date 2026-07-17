@@ -1,4 +1,4 @@
-Nuestro Espacio v7.2.2 Stable
+Nuestro Espacio v7.2.3 Stable
 
 Esta versión funciona normalmente sin configurar VAPID ni Cloud Messaging.
 
@@ -21,3 +21,9 @@ INSTALACIÓN:
 
 
 Restaurado: gestión completa de ingresos programados, ingresos extra, gastos fijos y gastos registrados.
+
+
+NUEVO v7.2.3:
+- Compartir lista pendiente con el menú nativo de iPhone.
+- WhatsApp, copiar, TXT y reporte imprimible/PDF.
+- Precios y resumen opcionales.
