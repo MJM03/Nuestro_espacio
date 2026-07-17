@@ -1,2 +1,3 @@
-Nuestro Espacio v7.1.0
-Corrección de inicio Firebase/Safari. Sube todos los archivos al mismo nivel en GitHub Pages.
+Nuestro Espacio v7.2.0
+Centro de notificaciones, actividad compartida y recordatorios de agenda.
+Sube todos los archivos al mismo nivel en GitHub Pages.
