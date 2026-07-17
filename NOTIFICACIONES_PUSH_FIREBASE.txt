@@ -1,16 +1,11 @@
-NOTIFICACIONES PUSH CON LA APP TOTALMENTE CERRADA
+MÓDULO PUSH EN STAND BY
 
-La versión 7.2.0 incluye:
-- Centro de notificaciones compartido en Firebase.
-- Avisos del navegador cuando la PWA está abierta o en segundo plano.
-- Recordatorios de agenda, citas médicas, salidas, pagos, mercado, despensa y finanzas.
-- Service Worker preparado para recibir Web Push.
+La app v7.2.1 no necesita VAPID para funcionar.
+Las notificaciones internas, la agenda y la actividad compartida siguen activas.
 
-Para enviar avisos con la PWA completamente cerrada falta completar Web Push en Firebase:
-1. Firebase Console > Configuración del proyecto > Cloud Messaging.
-2. Generar una clave Web Push (VAPID).
-3. Añadir esa clave pública al frontend.
-4. Guardar el token FCM de cada usuario.
-5. Desplegar una Cloud Function o servidor que envíe los mensajes.
+Cuando se retome el push con la app cerrada, se requerirá:
+- Clave pública VAPID.
+- Registro de tokens FCM por usuario.
+- Un entorno seguro de envío (Cloud Functions u otro backend).
 
-Este paso no puede quedar preconfigurado sin la clave VAPID específica del proyecto.
+No coloques claves privadas ni credenciales administrativas en GitHub Pages.

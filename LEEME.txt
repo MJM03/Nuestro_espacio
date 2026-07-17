@@ -1,3 +1,20 @@
-Nuestro Espacio v7.2.0
-Centro de notificaciones, actividad compartida y recordatorios de agenda.
-Sube todos los archivos al mismo nivel en GitHub Pages.
+Nuestro Espacio v7.2.1 Stable
+
+Esta versión funciona normalmente sin configurar VAPID ni Cloud Messaging.
+
+ACTIVO SIN CONFIGURACIÓN ADICIONAL:
+- Firebase y sincronización compartida.
+- Centro de notificaciones dentro de la app.
+- Actividad compartida entre miembros del hogar.
+- Recordatorios de agenda mientras la PWA está abierta o activa.
+- Alertas de mercado, despensa y finanzas.
+- Modo offline y respaldo local.
+
+EN ESPERA:
+- Push cuando la aplicación está completamente cerrada. Esta función puede activarse más adelante sin rehacer la app.
+
+INSTALACIÓN:
+1. Reemplaza todos los archivos del repositorio.
+2. Espera la publicación de GitHub Pages.
+3. Abre la URL en Safari y recarga.
+4. Para avisos de iOS, abre la PWA desde el icono instalado.
