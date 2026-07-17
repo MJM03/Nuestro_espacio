@@ -1,4 +1,4 @@
-Nuestro Espacio v7.2.4 Stable
+Nuestro Espacio v7.2.5 Stable
 
 Esta versión funciona normalmente sin configurar VAPID ni Cloud Messaging.
 
@@ -23,7 +23,15 @@ INSTALACIÓN:
 Restaurado: gestión completa de ingresos programados, ingresos extra, gastos fijos y gastos registrados.
 
 
-NUEVO v7.2.4:
+NUEVO v7.2.5:
+- Catálogo maestro ampliado a 394 productos comunes en Perú.
+- Clasificación natural de mercado: Cítricos, Tubérculos, Hierbas, carnes por tipo, menestras, condimentos, conservas, menaje, ollas, hogar, farmacia y más.
+- Limón, naranja, mandarina y toronja pasan a Cítricos.
+- Productos antiguos guardados se reclasifican visualmente por su nombre, sin perder datos.
+- Vista Mercado, filtros, WhatsApp, copiar, TXT y reporte PDF respetan las nuevas categorías.
+- Categoría editable al crear o modificar compras.
+
+ANTERIOR v7.2.4:
 - Compartir lista pendiente con el menú nativo de iPhone.
 - WhatsApp, copiar, TXT y reporte imprimible/PDF.
 - Precios y resumen opcionales.
