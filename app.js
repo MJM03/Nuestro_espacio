@@ -105,9 +105,28 @@ function price(x){const p=catalog().find(p=>p.id===x.productId);return num(x.uni
 function monthKey(dateValue=today()){return String(dateValue||today()).slice(0,7)}
 function purchaseDateOf(x){if(x.purchaseDate)return x.purchaseDate;const e=x.linkedExpenseId&&state.expenses.find(e=>e.id===x.linkedExpenseId);return e?.date||''}
 function currentMonthPurchasedRows(){const ym=monthKey();return state.shopping.filter(x=>x.done&&monthKey(purchaseDateOf(x))===ym)}
-function currentMonthMarketSpent(){return currentMonthPurchasedRows().reduce((sum,x)=>sum+num(x.actualTotal||num(x.qty)*price(x)),0)}
+function isMarketExpense(e){const cat=norm(e?.category||''),title=norm(e?.title||e?.description||'');return Boolean(e?.sourcePurchaseId||cat==='mercado'||cat.includes('mercado')||title.startsWith('mercado'))}
+function currentMonthMarketExpenses(){const ym=monthKey();return state.expenses.filter(e=>monthKey(e.date||e.createdAt||'')===ym&&isMarketExpense(e))}
+function currentMonthMarketSpent(){
+  const expenses=currentMonthMarketExpenses();
+  const expenseIds=new Set(expenses.map(e=>e.id).filter(Boolean));
+  const purchaseIds=new Set(expenses.map(e=>e.sourcePurchaseId).filter(Boolean));
+  let total=expenses.reduce((sum,e)=>sum+num(e.amount),0);
+  // Compatibilidad: suma compras realizadas que no tengan gasto enlazado o cuyo gasto antiguo haya desaparecido.
+  for(const x of currentMonthPurchasedRows()){
+    const linkedExists=(x.linkedExpenseId&&expenseIds.has(x.linkedExpenseId))||purchaseIds.has(x.id);
+    if(!linkedExists)total+=num(x.actualTotal||num(x.qty)*price(x));
+  }
+  return total;
+}
+function currentMonthMarketPurchaseCount(){
+  const expenses=currentMonthMarketExpenses();
+  const purchaseIds=new Set(expenses.map(e=>e.sourcePurchaseId||e.id).filter(Boolean));
+  for(const x of currentMonthPurchasedRows())purchaseIds.add(x.id);
+  return purchaseIds.size;
+}
 function pendingMarket(){return state.shopping.filter(x=>!x.done).reduce((s,x)=>s+num(x.qty)*price(x),0)}
-function marketBudgetStatus(){const budget=num(state.budget),spent=currentMonthMarketSpent(),pending=marketTotals()[state.preferredStore],projected=spent+pending,remaining=budget-projected;return{budget,spent,pending,projected,remaining,purchasedCount:currentMonthPurchasedRows().length,pendingCount:state.shopping.filter(x=>!x.done).length,month:monthKey()}}
+function marketBudgetStatus(){const budget=num(state.budget),spent=currentMonthMarketSpent(),pending=marketTotals()[state.preferredStore],projected=spent+pending,remaining=budget-projected;return{budget,spent,pending,projected,remaining,purchasedCount:currentMonthMarketPurchaseCount(),pendingCount:state.shopping.filter(x=>!x.done).length,month:monthKey()}}
 function monthExpenses(){const ym=today().slice(0,7);return state.expenses.filter(x=>String(x.date||'').startsWith(ym)).reduce((s,x)=>s+num(x.amount),0)}function monthlyFixedAmount(x){const a=num(x.amount);const f=x.frequency||'monthly';return f==='weekly'?a*4.33:f==='biweekly'?a*2:f==='annual'?a/12:a}function fixedTotal(){return state.fixedExpenses.filter(x=>x.active!==false).reduce((s,x)=>s+monthlyFixedAmount(x),0)}function incomeTotal(){return state.salaryPayments.filter(x=>x.active!==false).reduce((s,x)=>s+num(x.amount),0)+state.extraIncomes.filter(x=>String(x.date||'').startsWith(today().slice(0,7))).reduce((s,x)=>s+num(x.amount),0)}
 
 const STORE_LABELS={market:'Mercado',supermarket:'Supermercado',wholesale:'Mayorista'};

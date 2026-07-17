@@ -1,4 +1,4 @@
-Nuestro Espacio v7.2.6 Stable
+Nuestro Espacio v7.2.7 Stable
 
 Esta versión funciona normalmente sin configurar VAPID ni Cloud Messaging.
 
@@ -23,7 +23,7 @@ INSTALACIÓN:
 Restaurado: gestión completa de ingresos programados, ingresos extra, gastos fijos y gastos registrados.
 
 
-NUEVO v7.2.6:
+NUEVO v7.2.7:
 - El presupuesto del mercado descuenta compras realizadas del mes y productos aún pendientes.
 - Al marcar una compra, su total real permanece descontado; ya no regresa al saldo.
 - Resumen separado: gastado, pendiente estimado y saldo mensual.
