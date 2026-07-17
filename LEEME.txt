@@ -1,4 +1,4 @@
-Nuestro Espacio v7.2.5 Stable
+Nuestro Espacio v7.2.6 Stable
 
 Esta versión funciona normalmente sin configurar VAPID ni Cloud Messaging.
 
@@ -22,6 +22,15 @@ INSTALACIÓN:
 
 Restaurado: gestión completa de ingresos programados, ingresos extra, gastos fijos y gastos registrados.
 
+
+NUEVO v7.2.6:
+- El presupuesto del mercado descuenta compras realizadas del mes y productos aún pendientes.
+- Al marcar una compra, su total real permanece descontado; ya no regresa al saldo.
+- Resumen separado: gastado, pendiente estimado y saldo mensual.
+- Reinicio automático el día 1 de cada mes sin borrar historial, gastos ni despensa.
+- Compras anteriores se guardan en Historial mensual.
+- El filtro Comprados muestra el mes actual para evitar listas interminables.
+- Al eliminar una compra realizada se revierten correctamente gasto y despensa.
 
 NUEVO v7.2.5:
 - Catálogo maestro ampliado a 394 productos comunes en Perú.
