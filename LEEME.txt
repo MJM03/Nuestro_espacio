@@ -1,4 +1,4 @@
-Nuestro Espacio v7.2.7 Stable
+Nuestro Espacio v8.0.0 · Branding Edition
 
 Esta versión funciona normalmente sin configurar VAPID ni Cloud Messaging.
 
@@ -44,3 +44,11 @@ ANTERIOR v7.2.4:
 - Compartir lista pendiente con el menú nativo de iPhone.
 - WhatsApp, copiar, TXT y reporte imprimible/PDF.
 - Precios y resumen opcionales.
+
+
+NUEVO v8.0.0:
+- Identidad visual completa.
+- Logo e iconos renovados.
+- Paleta azul petróleo, salvia, crema y coral.
+- Dashboard, navegación, formularios y modales rediseñados.
+- Mantiene Firebase y todos los datos existentes.

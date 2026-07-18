@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 240" role="img" aria-label="Nuestro Espacio">
+  <rect width="980" height="240" rx="52" fill="#FFF9F3"/>
+  <g transform="translate(28,28) scale(.36)">
+    <defs><linearGradient id="b" x1="60" y1="40" x2="470" y2="480"><stop stop-color="#173B45"/><stop offset="1" stop-color="#0D2B33"/></linearGradient><linearGradient id="r" x1="100" y1="120" x2="420" y2="405"><stop stop-color="#F3CFC8"/><stop offset="1" stop-color="#DDA79E"/></linearGradient></defs>
+    <rect width="512" height="512" rx="118" fill="url(#b)"/><path d="M87 243 244 101c7-7 18-7 25 0l156 142c12 11 4 31-12 31h-24v137c0 18-15 33-33 33H156c-18 0-33-15-33-33V274H99c-16 0-24-20-12-31Z" fill="url(#r)"/><path d="M167 413V274h178v139c0 8-6 14-14 14H181c-8 0-14-6-14-14Z" fill="#FFF8F1"/><path d="M256 337c-28-42-81-17-81 23 0 45 81 83 81 83s81-38 81-83c0-40-53-65-81-23Z" fill="#173B45"/><circle cx="218" cy="354" r="12" fill="#F2B9AE"/><circle cx="294" cy="354" r="12" fill="#F2B9AE"/>
+  </g>
+  <text x="245" y="106" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="62" font-weight="780" fill="#173B45">Nuestro Espacio</text>
+  <text x="247" y="158" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="25" font-weight="560" letter-spacing="1.5" fill="#6F7E7A">ORGANICEN JUNTOS · VIVAN TRANQUILOS</text>
+</svg>
